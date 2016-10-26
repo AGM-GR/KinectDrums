@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ControlsBasics.Common
+namespace NPI.KinectDrums.Common
 {
     using System;
     using System.ComponentModel;

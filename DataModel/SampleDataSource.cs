@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
+namespace NPI.KinectDrums.DataModel
 {
     using System;
     using System.Collections;
@@ -15,7 +15,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel
     using System.Linq;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Microsoft.Samples.Kinect.ControlsBasics.Common;
+    using NPI.KinectDrums.Common;
     using System.Globalization;
 
     // The data model defined by this file serves as a representative example of a strongly-typed

@@ -4,7 +4,7 @@
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.ControlsBasics"
+        xmlns:local="clr-namespace:NPI.KinectDrums"
         Name="KinectDrums"
         Title="KinectDrums"
         mc:Ignorable="d"

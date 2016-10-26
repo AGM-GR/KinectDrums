@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ControlsBasics.Properties {
+namespace NPI.KinectDrums.Properties
+{
     using System;
     
     

@@ -11,7 +11,7 @@ namespace NPI.KinectDrums
     using System.Windows.Controls;
     using Microsoft.Kinect;
     using Microsoft.Kinect.Wpf.Controls;
-    using Microsoft.Samples.Kinect.ControlsBasics.DataModel;
+    using NPI.KinectDrums.DataModel;
 
     /// <summary>
     /// Interaction logic for MainWindow

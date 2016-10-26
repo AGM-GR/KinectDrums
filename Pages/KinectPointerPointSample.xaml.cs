@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ControlsBasics
+namespace NPI.KinectDrums
 {
     using System;
     using System.Windows;
