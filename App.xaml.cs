@@ -4,10 +4,10 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ControlsBasics
+namespace NPI.KinectDrums
 {
     using Microsoft.Kinect.Wpf.Controls;
-using System.Windows;
+    using System.Windows;
 
     /// <summary>
     /// Interaction logic for App
