@@ -66,28 +66,6 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="HandPointers\HandInScreenEngagementModel.cs" />
-    <Compile Include="Pages\ButtonSample.xaml.cs">
-      <DependentUpon>ButtonSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\CheckBoxRadioButtonSample.xaml.cs">
-      <DependentUpon>CheckBoxRadioButtonSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\EngagementSettings.xaml.cs">
-      <DependentUpon>EngagementSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="HandPointers\HandOverHeadEngagementModel.cs" />
-    <Compile Include="Pages\ItemsControlsSample.xaml.cs">
-      <DependentUpon>ItemsControlsSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\KinectPointerPointSample.xaml.cs">
-      <DependentUpon>KinectPointerPointSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ScrollViewerSample.xaml.cs">
-      <DependentUpon>ScrollViewerSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\SliderSample.xaml.cs">
-      <DependentUpon>SliderSample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SelectionDisplay.xaml.cs">
       <DependentUpon>SelectionDisplay.xaml</DependentUpon>
     </Compile>
@@ -111,34 +89,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\ButtonSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\CheckBoxRadioButtonSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\EngagementSettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\ItemsControlsSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\KinectPointerPointSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\ScrollViewerSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\SliderSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SelectionDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -192,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\CursorSpriteSheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,11 +1,5 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="MainWindow.xaml.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
+﻿namespace NPI.KinectDrums {
 
-namespace NPI.KinectDrums
-{
     using System;
     using System.Windows;
     using System.Windows.Controls;
@@ -13,16 +7,11 @@ namespace NPI.KinectDrums
     using Microsoft.Kinect.Wpf.Controls;
     using NPI.KinectDrums.DataModel;
 
-    /// <summary>
-    /// Interaction logic for MainWindow
-    /// </summary>
-    public partial class MainWindow
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindow"/> class. 
-        /// </summary>
-        public MainWindow()
-        {
+    // Interaction logic for MainWindow
+    public partial class MainWindow {
+
+        public MainWindow() {
+
             this.InitializeComponent();
 
             KinectRegion.SetKinectRegion(this, kinectRegion);
@@ -38,23 +27,19 @@ namespace NPI.KinectDrums
             this.itemsControl.ItemsSource = sampleDataSource;
         }
 
-        /// <summary>
-        /// Handle a button click from the wrap panel.
-        /// </summary>
-        /// <param name="sender">Event sender</param>
-        /// <param name="e">Event arguments</param>
-        private void ButtonClick(object sender, RoutedEventArgs e)
-        {            
+
+        private void ButtonClick(object sender, RoutedEventArgs e) {
+                       
             var button = (Button)e.OriginalSource;
             SampleDataItem sampleDataItem = button.DataContext as SampleDataItem;
 
-            if (sampleDataItem != null && sampleDataItem.NavigationPage != null)
-            {
+            if (sampleDataItem != null && sampleDataItem.NavigationPage != null) {
+
                 backButton.Visibility = System.Windows.Visibility.Visible;
                 navigationRegion.Content = Activator.CreateInstance(sampleDataItem.NavigationPage);
             }
-            else
-            {
+            else {
+
                 var selectionDisplay = new SelectionDisplay(button.Content as string);
                 this.kinectRegionGrid.Children.Add(selectionDisplay);
 
@@ -72,13 +57,11 @@ namespace NPI.KinectDrums
             }
         }
 
-        /// <summary>
-        /// Handle the back button click.
-        /// </summary>
-        /// <param name="sender">Event sender</param>
-        /// <param name="e">Event arguments</param>
-        private void GoBack(object sender, RoutedEventArgs e)
-        {
+        // Handle the back button click.
+        // <param name="sender">Event sender</param>
+        // <param name="e">Event arguments</param>
+        private void GoBack(object sender, RoutedEventArgs e) {
+
             backButton.Visibility = System.Windows.Visibility.Hidden;
             navigationRegion.Content = this.kinectRegionGrid;
         }
