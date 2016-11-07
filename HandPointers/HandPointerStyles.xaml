@@ -1141,6 +1141,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <!-- 
     BackButtons have a small visible area.
     The changes in this style (change margin to padding, set kinectpressinset,
@@ -1148,10 +1149,10 @@
     for HandPointers
     -->
     <Style x:Key="BackButtonStyle" TargetType="Button">
-        <Setter Property="MinWidth" Value="48"/>
-        <Setter Property="MinHeight" Value="48"/>
-        <Setter Property="Padding" Value="36,36,36,36" />
-        <Setter Property="k:KinectRegion.KinectPressInset" Value="36,36,36,36" />
+        <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="Padding" Value="36,10,36,10" />
+        <Setter Property="k:KinectRegion.KinectPressInset" Value="36,10,36,10" />
         <Setter Property="VerticalAlignment" Value="Bottom"/>        
         <Setter Property="FontWeight" Value="Normal"/>        
         <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>

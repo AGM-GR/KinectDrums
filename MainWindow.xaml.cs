@@ -62,7 +62,7 @@
         // <param name="e">Event arguments</param>
         private void GoBack(object sender, RoutedEventArgs e) {
 
-            backButton.Visibility = System.Windows.Visibility.Hidden;
+            //backButton.Visibility = System.Windows.Visibility.Hidden;
             navigationRegion.Content = this.kinectRegionGrid;
         }
     }
