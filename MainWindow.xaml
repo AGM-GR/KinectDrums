@@ -32,9 +32,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="backButton" Visibility="Visible" Grid.Column="0" Style="{StaticResource BackButtonStyle}" Click="GoBack" Grid.ColumnSpan="2"/>
-
-                <!-- <Image Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Source="Images\Logo.png" Stretch="None" Margin="0,52,0,56"/> -->
-                <!-- <k:KinectUserViewer Grid.Column="3" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="77,0,466,0" /> -->
+                
+                <k:KinectUserViewer Grid.Column="3" Height="68" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="77,0,466,0" />
                 <TextBlock Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontSize="18">KinectDrums</TextBlock>
             </Grid>
 

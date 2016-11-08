@@ -6,6 +6,7 @@
     using Microsoft.Kinect;
     using Microsoft.Kinect.Wpf.Controls;
     using NPI.KinectDrums.DataModel;
+    using System.ComponentModel;
 
     // Interaction logic for MainWindow
     public partial class MainWindow {
@@ -28,6 +29,7 @@
         }
 
 
+        // Handle the ButtonClick
         private void ButtonClick(object sender, RoutedEventArgs e) {
                        
             var button = (Button)e.OriginalSource;
@@ -35,35 +37,21 @@
 
             if (sampleDataItem != null && sampleDataItem.NavigationPage != null) {
 
-                backButton.Visibility = System.Windows.Visibility.Visible;
                 navigationRegion.Content = Activator.CreateInstance(sampleDataItem.NavigationPage);
-            }
-            else {
-
-                var selectionDisplay = new SelectionDisplay(button.Content as string);
-                this.kinectRegionGrid.Children.Add(selectionDisplay);
-
-                // Selection dialog covers the entire interact-able area, so the current press interaction
-                // should be completed. Otherwise hover capture will allow the button to be clicked again within
-                // the same interaction (even whilst no longer visible).
-                selectionDisplay.Focus();
-
-                // Since the selection dialog covers the entire interact-able area, we should also complete
-                // the current interaction of all other pointers.  This prevents other users interacting with elements
-                // that are no longer visible.
-                this.kinectRegion.InputPointerManager.CompleteGestures();
-
-                e.Handled = true;
             }
         }
 
         // Handle the back button click.
-        // <param name="sender">Event sender</param>
-        // <param name="e">Event arguments</param>
         private void GoBack(object sender, RoutedEventArgs e) {
 
-            //backButton.Visibility = System.Windows.Visibility.Hidden;
-            navigationRegion.Content = this.kinectRegionGrid;
+            if (navigationRegion.Content == this.kinectRegionGrid)
+                this.Close();
+            else if (navigationRegion.Content.GetType() == typeof(Play)) {
+                Play playContent = navigationRegion.Content as Play;
+                playContent.Play_Closing();
+                navigationRegion.Content = this.kinectRegionGrid;
+            } else
+                navigationRegion.Content = this.kinectRegionGrid;
         }
     }
 }

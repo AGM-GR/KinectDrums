@@ -69,9 +69,6 @@
     <Compile Include="Pages\Play.xaml.cs">
       <DependentUpon>Play.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SelectionDisplay.xaml.cs">
-      <DependentUpon>SelectionDisplay.xaml</DependentUpon>
-    </Compile>
     <Page Include="Common\StandardStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,10 +92,6 @@
     <Page Include="Pages\Play.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SelectionDisplay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

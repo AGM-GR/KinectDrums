@@ -13,7 +13,7 @@
     using Microsoft.Kinect;
 
     // Interaction logic for Play
-    public partial class Play : UserControl {
+    public partial class Play : UserControl, INotifyPropertyChanged {
 
         // Radius of drawn hand circles
         private const double HandSize = 30;
@@ -74,9 +74,6 @@
 
         // List of colors for each body tracked
         private List<Pen> bodyColors;
-
-        // Current status text to display
-        private string statusText = null;
 
         // Initializes a new instance of the Play class.
         public Play() {
@@ -150,9 +147,6 @@
             // open the sensor
             this.kinectSensor.Open();
 
-            // set the status text
-            //this.StatusText = this.kinectSensor.IsAvailable ? Properties.Resources.RunningStatusText : Properties.Resources.NoSensorStatusText;
-
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -178,33 +172,10 @@
             }
         }
 
-        // Gets or sets the current status text to display
-        public string StatusText {
-
-            get {
-
-                return this.statusText;
-            }
-
-            set {
-
-                if (this.statusText != value) {
-
-                    this.statusText = value;
-
-                    // notify any bound elements that the text has changed
-                    if (this.PropertyChanged != null) {
-
-                        this.PropertyChanged(this, new PropertyChangedEventArgs("StatusText"));
-                    }
-                }
-            }
-        }
-
         // Execute start up tasks
         // <param name="sender">object sending the event</param>
         // <param name="e">event arguments</param>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+        private void Play_Loaded(object sender, RoutedEventArgs e) {
 
             if (this.bodyFrameReader != null) {
 
@@ -213,9 +184,7 @@
         }
 
         // Execute shutdown tasks
-        // <param name="sender">object sending the event</param>
-        // <param name="e">event arguments</param>
-        private void MainWindow_Closing(object sender, CancelEventArgs e) {
+        public void Play_Closing() {
 
             if (this.bodyFrameReader != null) {
 
@@ -435,8 +404,7 @@
         // <param name="e">event arguments</param>
         private void Sensor_IsAvailableChanged(object sender, IsAvailableChangedEventArgs e) {
 
-            // on failure, set the status text
-            //this.StatusText = this.kinectSensor.IsAvailable ? Properties.Resources.RunningStatusText : Properties.Resources.SensorNotAvailableStatusText;
+            //
         }
     }
 }
