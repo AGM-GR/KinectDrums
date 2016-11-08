@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
@@ -53,12 +52,13 @@
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-1",
-                "Item Title: 1",
-                "Item Subtitle: 1",
+                "Play Now",
+                "Play a default drums kit",
                 SampleDataSource.darkGrayImage,
-                "Item Description: Inutil.",
+                "Item Description: Start playing whith a default drums kit.",
                 itemContent,
-                group1));
+                group1,
+                typeof(Play)));
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-2",
