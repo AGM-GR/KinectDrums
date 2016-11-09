@@ -138,17 +138,27 @@
     <Folder Include="3DObjects\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\garage.jpg" />
+    <Resource Include="Images\garage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\bass.jpg" />
-    <Resource Include="Images\bass.png" />
+    <Resource Include="Images\bass.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\snare.jpg" />
-    <Resource Include="Images\snare.png" />
+    <Resource Include="Images\snare.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sounds\Bass.wav" />
-    <Content Include="Sounds\Snare.wav" />
+    <Content Include="Sounds\Bass.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Snare.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

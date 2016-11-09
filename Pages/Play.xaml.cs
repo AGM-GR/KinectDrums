@@ -8,6 +8,7 @@
     using Microsoft.Kinect;
     using System.Windows.Media.Imaging;
     using System.Media;
+    using System.IO;
 
     public partial class Play : UserControl {
 
@@ -71,6 +72,8 @@
         // List of colors for each body tracked
         private List<Pen> bodyColors;
 
+    
+
 
 
         /**********************************************************************************************************************************/
@@ -78,10 +81,12 @@
         private BitmapImage bass = new BitmapImage(new Uri("pack://application:,,,/Images/bass.png", UriKind.Absolute));
         double bassReduction = 2.2;
         Rect bassHitRect;
+        bool bassHit = false;
 
         BitmapImage snare = new BitmapImage(new Uri("pack://application:,,,/Images/snare.png", UriKind.Absolute));
         double snareReduction = 5.6;
         Rect snareHitRect;
+        bool snareHit = false;
         /**********************************************************************************************************************************/
 
 
@@ -169,11 +174,11 @@
 
             //////////////////////////////////////////
             bassHitRect = new Rect((this.displayWidth - (bass.Width / bassReduction / 5)) / 2,
-                                    this.displayHeight - (bass.Height / bassReduction / 30),
-                                    bass.Width / bassReduction / 5, bass.Height / bassReduction / 30);
+                                    this.displayHeight - (bass.Height / bassReduction / 10),
+                                    bass.Width / bassReduction / 5, bass.Height / bassReduction / 10);
             snareHitRect = new Rect((this.displayWidth / 2) + (bass.Width / bassReduction / 3),
                                     this.displayHeight - ((bass.Height / bassReduction) + (snare.Height / snareReduction / 2)),
-                                    snare.Width / snareReduction, snare.Height / snareReduction / 10);
+                                    snare.Width / snareReduction, snare.Height / snareReduction / 5);
             //////////////////////////////////////////
         }
 
@@ -406,18 +411,29 @@
         // Maneja cuando golpeas un tambor
         private void OnDrumHit(Point interactionPosition) {
 
-            if (bassHitRect.Contains(interactionPosition)) {
+            if (bassHitRect.Contains(interactionPosition) && !bassHit) {
 
+                bassHit = true;
                 SoundPlayer player = new SoundPlayer("Sounds/Bass.wav");
                 player.Load();
                 player.Play();
 
             }
-            else if (snareHitRect.Contains(interactionPosition)) {
 
+            else {
+                bassHit = false;
+            }
+
+            if (snareHitRect.Contains(interactionPosition))
+            {
+
+                snareHit = true;
                 SoundPlayer player = new SoundPlayer("Sounds/Snare.wav");
                 player.Load();
                 player.Play();
+            }
+            else {
+                snareHit = false;
             }
 
         }
