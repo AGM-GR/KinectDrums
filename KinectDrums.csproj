@@ -16,7 +16,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Kinect.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <OutputPath>$(BinDir)$(PlatformTarget).$(Configuration)\</OutputPath>
@@ -120,22 +121,12 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Kinect.ico" />
-    <Resource Include="Images\Logo.png" />
     <Resource Include="Assets\DarkGray.png" />
     <Resource Include="Assets\LightGray.png" />
     <Resource Include="Assets\MediumGray.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="HandPointers\HighlightRectangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\beach.jpg" />
-    <Resource Include="Images\clouds.jpg" />
-    <Resource Include="Images\fireworks.jpg" />
-    <Resource Include="Images\hamlet.jpg" />
-    <Resource Include="Images\operahouse.jpg" />
-    <Resource Include="Images\sydney.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\CursorSpriteSheetPurple.png" />
@@ -145,6 +136,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="3DObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\garage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bass.jpg" />
+    <Resource Include="Images\bass.png" />
+    <Resource Include="Images\snare.jpg" />
+    <Resource Include="Images\snare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sounds\Bass.wav" />
+    <Content Include="Sounds\Snare.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

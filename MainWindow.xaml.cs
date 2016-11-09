@@ -8,7 +8,7 @@
     using NPI.KinectDrums.DataModel;
     using System.ComponentModel;
 
-    // Interaction logic for MainWindow
+    //Venta principal de la aplicación
     public partial class MainWindow {
 
         public MainWindow() {
@@ -20,16 +20,16 @@
             App app = ((App)Application.Current);
             app.KinectRegion = kinectRegion;
 
-            // Use the default sensor
+            // Usa el sensor por defecto
             this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
 
-            //// Add in display content
+            // Añade los botones a la venta principal
             var sampleDataSource = SampleDataSource.GetGroup("Group-1");
             this.itemsControl.ItemsSource = sampleDataSource;
         }
 
 
-        // Handle the ButtonClick
+        // Maneja que hacer al pulsar un botón: ButtonClick
         private void ButtonClick(object sender, RoutedEventArgs e) {
                        
             var button = (Button)e.OriginalSource;
@@ -41,7 +41,7 @@
             }
         }
 
-        // Handle the back button click.
+        // Maneja el funcionamiento del botón GoBack.
         private void GoBack(object sender, RoutedEventArgs e) {
 
             if (navigationRegion.Content == this.kinectRegionGrid)
@@ -52,6 +52,16 @@
                 navigationRegion.Content = this.kinectRegionGrid;
             } else
                 navigationRegion.Content = this.kinectRegionGrid;
+        }
+
+        // Maneja el cierre del programa, para una correcta finalización.
+        private void MainWindow_Closing(object sender, CancelEventArgs e) {
+
+            if (this.kinectRegion.KinectSensor != null) {
+
+                this.kinectRegion.KinectSensor.Close();
+                this.kinectRegion.KinectSensor = null;
+            }
         }
     }
 }
