@@ -8,7 +8,6 @@
     using Microsoft.Kinect;
     using System.Windows.Media.Imaging;
     using System.Media;
-    using System.IO;
 
     public partial class Play : UserControl {
 
@@ -87,6 +86,8 @@
         double snareReduction = 5.6;
         Rect snareHitRect;
         bool snareHit = false;
+
+        Rect hihatHitRect;
         /**********************************************************************************************************************************/
 
 
@@ -173,12 +174,15 @@
             this.InitializeComponent();
 
             //////////////////////////////////////////
-            bassHitRect = new Rect((this.displayWidth - (bass.Width / bassReduction / 5)) / 2,
-                                    this.displayHeight - (bass.Height / bassReduction / 10),
-                                    bass.Width / bassReduction / 5, bass.Height / bassReduction / 10);
+            bassHitRect = new Rect((this.displayWidth - (bass.Width / bassReduction / 5)) / 2 - 15,
+                                    this.displayHeight - (bass.Height / bassReduction / 5),
+                                    bass.Width / bassReduction / 3, bass.Height / bassReduction / 10);
             snareHitRect = new Rect((this.displayWidth / 2) + (bass.Width / bassReduction / 3),
                                     this.displayHeight - ((bass.Height / bassReduction) + (snare.Height / snareReduction / 2)),
-                                    snare.Width / snareReduction, snare.Height / snareReduction / 5);
+                                    snare.Width / snareReduction, snare.Height / snareReduction / 2);
+            hihatHitRect = new Rect((this.displayWidth / 4) + (bass.Width / bassReduction / 10),
+                                    this.displayHeight - ((bass.Height / bassReduction * 2) + (snare.Height / snareReduction / 2)),
+                                    snare.Width / snareReduction, snare.Height / snareReduction / 2);
             //////////////////////////////////////////
         }
 
@@ -426,12 +430,24 @@
             if (snareHitRect.Contains(interactionPosition) && !snareHit) {
 
                 snareHit = true;
-                SoundPlayer player = new SoundPlayer("Sounds/Snare.wav");
-                player.Load();
-                player.Play();
+                /* SoundPlayer player = new SoundPlayer("Sounds/Snare.wav");
+                 player.Load();
+                 player.Play();*/
+                var exePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+                var exeDir = System.IO.Path.GetDirectoryName(exePath);
+                var p1 = new MediaPlayer();
+                p1.Open(new Uri(exeDir + "\\Sounds\\Snare.wav"));
+                p1.Play();
             }
             else {
                 snareHit = false;
+            }
+
+            if(hihatHitRect.Contains(interactionPosition)) {
+
+                SoundPlayer player = new SoundPlayer("Sounds/Hihat.wav");
+                player.Load();
+                player.Play();
             }
 
         }

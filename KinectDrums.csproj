@@ -156,6 +156,9 @@
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\Hihat.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\Snare.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
