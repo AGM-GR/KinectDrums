@@ -419,13 +419,11 @@
                 player.Play();
 
             }
-
             else {
                 bassHit = false;
             }
 
-            if (snareHitRect.Contains(interactionPosition))
-            {
+            if (snareHitRect.Contains(interactionPosition) && !snareHit) {
 
                 snareHit = true;
                 SoundPlayer player = new SoundPlayer("Sounds/Snare.wav");
