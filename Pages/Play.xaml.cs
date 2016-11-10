@@ -7,7 +7,6 @@
     using System.Windows.Controls;
     using Microsoft.Kinect;
     using System.Windows.Media.Imaging;
-    using System.Media;
 
     public partial class Play : UserControl {
 
@@ -190,7 +189,7 @@
                                     this.displayHeight - ((bass.Height / bassReduction) + (snare.Height / snareReduction / 2)),
                                     snare.Width / snareReduction, snare.Height / snareReduction / 2);
             hihatHitRect = new Rect((this.displayWidth / 4) + (bass.Width / bassReduction / 10),
-                                    this.displayHeight - ((bass.Height / bassReduction * 2) + (snare.Height / snareReduction / 2)),
+                                    this.displayHeight - ((bass.Height / bassReduction * 2) + (snare.Height / snareReduction / 5)),
                                     snare.Width / snareReduction, snare.Height / snareReduction / 2);
             //////////////////////////////////////////
             exeDir = System.IO.Path.GetDirectoryName(exePath);
@@ -213,6 +212,15 @@
 
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
             }
+
+            else
+
+                using (DrawingContext dc = this.drawingGroup.Open()) {
+
+                    // Dibuja la batería
+                    this.DrawDrums(dc);
+                }
+
         }
 
         // Funcion para cerrar correctamente el programa
@@ -231,7 +239,7 @@
         // <param name="e">event arguments</param>
         private void Reader_FrameArrived(object sender, BodyFrameArrivedEventArgs e) {
 
-                bool dataReceived = false;
+            bool dataReceived = false;
 
             using (BodyFrame bodyFrame = e.FrameReference.AcquireFrame()) {
 
@@ -254,11 +262,11 @@
 
                 using (DrawingContext dc = this.drawingGroup.Open()) {
 
-                    // Draw a transparent background to set the render size
-                    dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
-
                     // Dibuja la batería
                     this.DrawDrums(dc);
+
+                    // Draw a transparent background to set the render size
+                    dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
 
                     int penIndex = 0;
                     foreach (Body body in this.bodies) {
