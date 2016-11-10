@@ -254,11 +254,11 @@
 
                 using (DrawingContext dc = this.drawingGroup.Open()) {
 
-                    // Dibuja la batería
-                    this.DrawDrums(dc);
-
                     // Draw a transparent background to set the render size
                     dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
+
+                    // Dibuja la batería
+                    this.DrawDrums(dc);
 
                     int penIndex = 0;
                     foreach (Body body in this.bodies) {
@@ -294,10 +294,7 @@
                             this.DrawHand(body.HandRightState, jointPoints[JointType.FootRight], dc);
 
                             //Comprueba si ha tocado un tambor
-                            OnDrumHit(jointPoints[JointType.HandTipLeft]);
-                            OnDrumHit(jointPoints[JointType.HandTipRight]);
-                            OnDrumHit(jointPoints[JointType.FootLeft]);
-                            OnDrumHit(jointPoints[JointType.FootRight]);
+                            OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
 
                         }
                     }
@@ -399,17 +396,6 @@
             }
         }
 
-        // Dibuja la batería
-        private void DrawDrums() {
-
-            // Create a 100 by 100 image with an upper-left point of (75,75). 
-            ImageDrawing bass = new ImageDrawing();
-            bass.Rect = new Rect(0, 0, 400, 400);
-            bass.ImageSource = new BitmapImage(
-                new Uri("pack://application:,,,/Images/bass.png", UriKind.Absolute));
-
-            this.drawingGroup.Children.Add(bass);
-        }
         private void DrawDrums(DrawingContext drawingContext) {
 
             //Bombo
@@ -423,44 +409,44 @@
                                                         this.displayHeight - ((bass.Height / bassReduction)+(snare.Height/snareReduction/2)),
                                                         snare.Width / snareReduction, snare.Height / snareReduction));
             drawingContext.DrawRectangle(this.handOpenBrush, null, snareHitRect);
+
+            //HitHat
             drawingContext.DrawRectangle(this.handOpenBrush, null, hihatHitRect);
         }
 
         // Maneja cuando golpeas un tambor
-        private void OnDrumHit(Point interactionPosition) {
+        private void OnDrumHit(Point LeftHand, Point RightHand, Point LeftFoot, Point RightFoot) {
 
-            
-
-            if (bassHitRect.Contains(interactionPosition) && !bassHit) {
+            if ((bassHitRect.Contains(LeftFoot) || bassHitRect.Contains(RightFoot)) && !bassHit) {
 
                 bassHit = true;
                 playerBass.Stop();
                 playerBass.Play();
 
             }
-            else if(!bassHitRect.Contains(interactionPosition)) {
+            else if(!(bassHitRect.Contains(LeftFoot) || bassHitRect.Contains(RightFoot))) {
                 bassHit = false;
             }
 
-            if (snareHitRect.Contains(interactionPosition) && !snareHit) {
+            if ((snareHitRect.Contains(LeftHand) || snareHitRect.Contains(RightHand)) && !snareHit) {
 
                 snareHit = true;
                 playerSnare.Stop();
                 playerSnare.Play();
 
             }
-            else if(snareHitRect.Contains(interactionPosition) && snareHit) {
+            else if(!(snareHitRect.Contains(LeftHand) || snareHitRect.Contains(RightHand))) {
                 snareHit = false;
             }
 
-            if(hihatHitRect.Contains(interactionPosition) && !hihatHit) {
+            if((hihatHitRect.Contains(LeftHand) || hihatHitRect.Contains(RightHand)) && !hihatHit) {
 
                 hihatHit = true;
                 playerHihat.Stop();
                 playerHihat.Play();
 
             }
-            else {
+            else if (!(hihatHitRect.Contains(LeftHand) || hihatHitRect.Contains(RightHand))) {
                 hihatHit = false;
             }
         }
