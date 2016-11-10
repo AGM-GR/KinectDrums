@@ -153,6 +153,8 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\hihat.png" />
+    <Resource Include="Images\hihat.jpg" />
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
