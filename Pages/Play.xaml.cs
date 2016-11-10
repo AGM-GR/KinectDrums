@@ -71,9 +71,17 @@
         // List of colors for each body tracked
         private List<Pen> bodyColors;
 
-    
 
-
+        /**********************************************************************************************************************************/
+        // Drum elements players
+        private string exePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+        private string exeDir;
+        MediaPlayer playerBass = new MediaPlayer();
+        
+        MediaPlayer playerSnare = new MediaPlayer();
+        
+        MediaPlayer playerHihat = new MediaPlayer();
+        
 
         /**********************************************************************************************************************************/
         //DrumsKit variables
@@ -88,6 +96,7 @@
         bool snareHit = false;
 
         Rect hihatHitRect;
+        bool hihatHit = false;
         /**********************************************************************************************************************************/
 
 
@@ -184,6 +193,10 @@
                                     this.displayHeight - ((bass.Height / bassReduction * 2) + (snare.Height / snareReduction / 2)),
                                     snare.Width / snareReduction, snare.Height / snareReduction / 2);
             //////////////////////////////////////////
+            exeDir = System.IO.Path.GetDirectoryName(exePath);
+            playerBass.Open(new Uri(exeDir + "\\Sounds\\Bass.wav"));
+            playerSnare.Open(new Uri(exeDir + "\\Sounds\\Snare.wav"));
+            playerHihat.Open(new Uri(exeDir + "\\Sounds\\Hihat.wav"));
         }
 
         // Obtiene el bitmap
@@ -410,46 +423,46 @@
                                                         this.displayHeight - ((bass.Height / bassReduction)+(snare.Height/snareReduction/2)),
                                                         snare.Width / snareReduction, snare.Height / snareReduction));
             drawingContext.DrawRectangle(this.handOpenBrush, null, snareHitRect);
+            drawingContext.DrawRectangle(this.handOpenBrush, null, hihatHitRect);
         }
 
         // Maneja cuando golpeas un tambor
         private void OnDrumHit(Point interactionPosition) {
 
+            
+
             if (bassHitRect.Contains(interactionPosition) && !bassHit) {
 
                 bassHit = true;
-                SoundPlayer player = new SoundPlayer("Sounds/Bass.wav");
-                player.Load();
-                player.Play();
+                playerBass.Stop();
+                playerBass.Play();
 
             }
-            else {
+            else if(!bassHitRect.Contains(interactionPosition)) {
                 bassHit = false;
             }
 
             if (snareHitRect.Contains(interactionPosition) && !snareHit) {
 
                 snareHit = true;
-                /* SoundPlayer player = new SoundPlayer("Sounds/Snare.wav");
-                 player.Load();
-                 player.Play();*/
-                var exePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
-                var exeDir = System.IO.Path.GetDirectoryName(exePath);
-                var p1 = new MediaPlayer();
-                p1.Open(new Uri(exeDir + "\\Sounds\\Snare.wav"));
-                p1.Play();
+                playerSnare.Stop();
+                playerSnare.Play();
+
             }
-            else {
+            else if(snareHitRect.Contains(interactionPosition) && snareHit) {
                 snareHit = false;
             }
 
-            if(hihatHitRect.Contains(interactionPosition)) {
+            if(hihatHitRect.Contains(interactionPosition) && !hihatHit) {
 
-                SoundPlayer player = new SoundPlayer("Sounds/Hihat.wav");
-                player.Load();
-                player.Play();
+                hihatHit = true;
+                playerHihat.Stop();
+                playerHihat.Play();
+
             }
-
+            else {
+                hihatHit = false;
+            }
         }
     }
 }
