@@ -86,7 +86,7 @@
     </Style>
 
     <DataTemplate x:Key="KinectItemTemplate">
-        <Button Margin="3" Style="{StaticResource KinectTileButton}">
+        <Button Margin="30" Style="{StaticResource KinectTileButton}">
             <Grid HorizontalAlignment="Left" Width="250" Height="250">
                 <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
                     <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
