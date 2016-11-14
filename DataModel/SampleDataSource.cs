@@ -2,7 +2,6 @@
 
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
@@ -23,8 +22,9 @@
         private ObservableCollection<SampleDataCollection> allGroups = new ObservableCollection<SampleDataCollection>();
 
         private static Uri darkGrayImage = new Uri("Assets/DarkGray.png", UriKind.Relative);
-        private static Uri mediumGrayImage = new Uri("assets/mediumGray.png", UriKind.Relative);
-        private static Uri lightGrayImage = new Uri("assets/lightGray.png", UriKind.Relative);
+        private static Uri mediumGrayImage = new Uri("Assets/MediumGray.png", UriKind.Relative);
+        private static Uri lightGrayImage = new Uri("Assets/LightGray.png", UriKind.Relative);
+        private static Uri GarageImage = new Uri("/Images/garage.jpg", UriKind.Relative);
 
         public SampleDataSource() {
 
@@ -35,26 +35,16 @@
 
             var group1 = new SampleDataCollection(
                 "Group-1",
-                "Group Title: 3",
-                "Group Subtitle: 3",
+                "Group Title: 1",
+                "Group Subtitle: 1",
                 SampleDataSource.mediumGrayImage,
                 "Group Description: Menu Group");
-            /*group1.Items.Add(
-                new SampleDataItem(
-                "Group-1-Item-1",
-                "Buttons",
-                string.Empty,
-                SampleDataSource.darkGrayImage,
-                "Several types of buttons with custom styles",
-                itemContent,
-                group1,
-                typeof(ButtonSample)));*/
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-1",
                 "Play Now",
                 "Play a default drums kit",
-                SampleDataSource.darkGrayImage,
+                SampleDataSource.GarageImage,
                 "Item Description: Start playing whith a default drums kit.",
                 itemContent,
                 group1,
@@ -74,15 +64,6 @@
                 "Item Title: 3",
                 "Item Subtitle: 3",
                 SampleDataSource.mediumGrayImage,
-                "Item Description: Inutil.",
-                itemContent,
-                group1));
-            group1.Items.Add(
-                new SampleDataItem(
-                "Group-1-Item-4",
-                "Item Title: 4",
-                "Item Subtitle: 4",
-                SampleDataSource.lightGrayImage,
                 "Item Description: Inutil.",
                 itemContent,
                 group1));
@@ -122,9 +103,6 @@
 
 
     public abstract class SampleDataCommon : BindableBase {
-
-        // baseUri for image loading purposes
-        private static Uri baseUri = new Uri("pack://application:,,,/");
 
         // Field to store uniqueId
         private string uniqueId = string.Empty;
@@ -190,7 +168,7 @@
 
                 if (this.image == null && this.imagePath != null) {
 
-                    this.image = new BitmapImage(new Uri(SampleDataCommon.baseUri, this.imagePath));
+                    this.image = new BitmapImage(this.imagePath);
                 }
 
                 return this.image;

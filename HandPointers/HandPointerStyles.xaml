@@ -52,8 +52,8 @@
 
     <SolidColorBrush x:Key="ListViewItemPlaceholderBackgroundThemeBrush" Color="Black"/>
     <SolidColorBrush x:Key="ListViewItemOverlayBackgroundThemeBrush" Color="DarkGray" />
-    <SolidColorBrush x:Key="ListViewItemOverlayForegroundThemeBrush" Color="Yellow" />
-    <SolidColorBrush x:Key="ListViewItemOverlaySecondaryForegroundThemeBrush" Color="Aqua"/>
+    <SolidColorBrush x:Key="ListViewItemOverlayForegroundThemeBrush" Color="Black" />
+    <SolidColorBrush x:Key="ListViewItemOverlaySecondaryForegroundThemeBrush" Color="Gray"/>
     
     <Style x:Key="KinectTileButton" TargetType="Button">
         <Setter Property="Template">
@@ -85,14 +85,14 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="Kinect250x250ItemTemplate">
+    <DataTemplate x:Key="KinectItemTemplate">
         <Button Margin="3" Style="{StaticResource KinectTileButton}">
             <Grid HorizontalAlignment="Left" Width="250" Height="250">
                 <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
                     <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
                 </Border>
                 <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="30" Margin="15,10,15,0"/>
                     <TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
                 </StackPanel>
             </Grid>

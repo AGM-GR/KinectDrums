@@ -19,17 +19,8 @@
         // Constant for clamping Z values of camera space points from being negative
         private const float InferredZPositionClamp = 0.1f;
 
-        // Brush used for drawing hands that are currently tracked as closed
-        private readonly Brush handClosedBrush = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
-
-        // Brush used for drawing hands that are currently tracked as opened
-        private readonly Brush handOpenBrush = new SolidColorBrush(Color.FromArgb(128, 0, 255, 0));
-
-        // Brush used for drawing hands that are currently tracked as in lasso (pointer) position
-        private readonly Brush handLassoBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 255));
-
         // Brush used for drawing hands
-        private readonly Brush handBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 255));
+        private readonly Brush handBrush = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
 
         // Brush used for drawing joints that are currently tracked
         private readonly Brush trackedJointBrush = new SolidColorBrush(Color.FromArgb(255, 68, 192, 68));
@@ -70,32 +61,32 @@
         // List of colors for each body tracked
         private List<Pen> bodyColors;
 
-
+        //DrumsKit variables
         /**********************************************************************************************************************************/
         // Drum elements players
         private string exePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
         private string exeDir;
-        MediaPlayer playerBass = new MediaPlayer();
-        
-        MediaPlayer playerSnare = new MediaPlayer();
-        
-        MediaPlayer playerHihat = new MediaPlayer();
-        
 
-        /**********************************************************************************************************************************/
-        //DrumsKit variables
+        // Bass Variables
         private BitmapImage bass = new BitmapImage(new Uri("pack://application:,,,/Images/bass.png", UriKind.Absolute));
         double bassReduction = 2.2;
         Rect bassHitRect;
         bool bassHit = false;
+        MediaPlayer playerBass = new MediaPlayer();
 
+        // Snare Variables
         BitmapImage snare = new BitmapImage(new Uri("pack://application:,,,/Images/snare.png", UriKind.Absolute));
         double snareReduction = 5.6;
         Rect snareHitRect;
         bool snareHit = false;
+        MediaPlayer playerSnare = new MediaPlayer();
 
+        // Hihat Variables
+        BitmapImage hihat = new BitmapImage(new Uri("pack://application:,,,/Images/hihat.png", UriKind.Absolute));
+        double hihatHitReduction = 5.6;
         Rect hihatHitRect;
         bool hihatHit = false;
+        MediaPlayer playerHihat = new MediaPlayer();
         /**********************************************************************************************************************************/
 
 
@@ -181,6 +172,7 @@
             // Inicializa los componentes de la vista
             this.InitializeComponent();
 
+            // Inicializa la batería
             //////////////////////////////////////////
             bassHitRect = new Rect((this.displayWidth - (bass.Width / bassReduction / 5)) / 2 - 15,
                                     this.displayHeight - (bass.Height / bassReduction / 5),
@@ -384,47 +376,31 @@
         // <param name="drawingContext">drawing context to draw to</param>
         private void DrawHand(HandState handState, Point handPosition, DrawingContext drawingContext) {
 
-            switch (handState) {
-
-                case HandState.Closed:
-                    drawingContext.DrawEllipse(this.handClosedBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                case HandState.Open:
-                    drawingContext.DrawEllipse(this.handOpenBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                case HandState.Lasso:
-                    drawingContext.DrawEllipse(this.handLassoBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                default:
-                    drawingContext.DrawEllipse(this.handBrush, null, handPosition, HandSize, HandSize);
-                    break;
-            }
+            drawingContext.DrawEllipse(this.handBrush, null, handPosition, HandSize, HandSize);
         }
 
         private void DrawDrums(DrawingContext drawingContext) {
 
-            //Bombo
+            //Bass
             drawingContext.DrawImage(bass, new Rect((this.displayWidth-(bass.Width/bassReduction))/2, 
                                                         this.displayHeight-(bass.Height/bassReduction), 
                                                         bass.Width/bassReduction, bass.Height/bassReduction));
-            drawingContext.DrawRectangle(this.handOpenBrush,null,bassHitRect);
+            drawingContext.DrawRectangle(this.handBrush,null,bassHitRect);
 
             //Snare
             drawingContext.DrawImage(snare, new Rect((this.displayWidth/2)+(bass.Width / bassReduction / 3), 
                                                         this.displayHeight - ((bass.Height / bassReduction)+(snare.Height/snareReduction/2)),
                                                         snare.Width / snareReduction, snare.Height / snareReduction));
-            drawingContext.DrawRectangle(this.handOpenBrush, null, snareHitRect);
+            drawingContext.DrawRectangle(this.handBrush, null, snareHitRect);
 
             //HitHat
-            drawingContext.DrawRectangle(this.handOpenBrush, null, hihatHitRect);
+            drawingContext.DrawRectangle(this.handBrush, null, hihatHitRect);
         }
 
         // Maneja cuando golpeas un tambor
         private void OnDrumHit(Point LeftHand, Point RightHand, Point LeftFoot, Point RightFoot) {
 
+            // Bass Hit
             if ((bassHitRect.Contains(LeftFoot) || bassHitRect.Contains(RightFoot)) && !bassHit) {
 
                 bassHit = true;
@@ -436,6 +412,7 @@
                 bassHit = false;
             }
 
+            // Snare Hit
             if ((snareHitRect.Contains(LeftHand) || snareHitRect.Contains(RightHand)) && !snareHit) {
 
                 snareHit = true;
@@ -447,6 +424,7 @@
                 snareHit = false;
             }
 
+            // Hihat Hit
             if((hihatHitRect.Contains(LeftHand) || hihatHitRect.Contains(RightHand)) && !hihatHit) {
 
                 hihatHit = true;
