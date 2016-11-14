@@ -121,9 +121,15 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\DarkGray.png" />
-    <Resource Include="Assets\LightGray.png" />
-    <Resource Include="Assets\MediumGray.png" />
+    <Resource Include="Assets\DarkGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\LightGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\MediumGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="HandPointers\HighlightRectangle.png" />
@@ -134,9 +140,7 @@
   <ItemGroup>
     <Resource Include="Assets\CursorSpriteSheet.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="3DObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\garage.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -153,7 +157,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\hihat.png" />
+    <Resource Include="Images\hihat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\hihat.jpg" />
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

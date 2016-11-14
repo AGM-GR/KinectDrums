@@ -19,17 +19,8 @@
         // Constant for clamping Z values of camera space points from being negative
         private const float InferredZPositionClamp = 0.1f;
 
-        // Brush used for drawing hands that are currently tracked as closed
-        private readonly Brush handClosedBrush = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
-
-        // Brush used for drawing hands that are currently tracked as opened
-        private readonly Brush handOpenBrush = new SolidColorBrush(Color.FromArgb(128, 0, 255, 0));
-
-        // Brush used for drawing hands that are currently tracked as in lasso (pointer) position
-        private readonly Brush handLassoBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 255));
-
         // Brush used for drawing hands
-        private readonly Brush handBrush = new SolidColorBrush(Color.FromArgb(128, 0, 0, 255));
+        private readonly Brush handBrush = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
 
         // Brush used for drawing joints that are currently tracked
         private readonly Brush trackedJointBrush = new SolidColorBrush(Color.FromArgb(255, 68, 192, 68));
@@ -70,33 +61,33 @@
         // List of colors for each body tracked
         private List<Pen> bodyColors;
 
-
-        /**********************************************************************************************************************************/
+        /*****************************************************************************************************************/
+        //DrumKit variables
         // Drum elements players
         private string exePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
         private string exeDir;
-        MediaPlayer playerBass = new MediaPlayer();
-        
-        MediaPlayer playerSnare = new MediaPlayer();
-        
-        MediaPlayer playerHihat = new MediaPlayer();
-        
 
-        /**********************************************************************************************************************************/
-        //DrumsKit variables
+        // Bass Variables
         private BitmapImage bass = new BitmapImage(new Uri("pack://application:,,,/Images/bass.png", UriKind.Absolute));
         double bassReduction = 2.2;
         Rect bassHitRect;
         bool bassHit = false;
+        MediaPlayer playerBass = new MediaPlayer();
 
+        // Snare Variables
         BitmapImage snare = new BitmapImage(new Uri("pack://application:,,,/Images/snare.png", UriKind.Absolute));
         double snareReduction = 5.6;
         Rect snareHitRect;
         bool snareHit = false;
+        MediaPlayer playerSnare = new MediaPlayer();
 
+        // Hihat Variables
+        BitmapImage hihat = new BitmapImage(new Uri("pack://application:,,,/Images/hihat.png", UriKind.Absolute));
+        double hihatHitReduction = 5.6;
         Rect hihatHitRect;
         bool hihatHit = false;
-        /**********************************************************************************************************************************/
+        MediaPlayer playerHihat = new MediaPlayer();
+        /*****************************************************************************************************************/
 
 
 
@@ -181,21 +172,25 @@
             // Inicializa los componentes de la vista
             this.InitializeComponent();
 
-            //////////////////////////////////////////
+
+            /*****************************************************************************************************************/
+            // Inicializa la batería
+            exeDir = System.IO.Path.GetDirectoryName(exePath);
             bassHitRect = new Rect((this.displayWidth - (bass.Width / bassReduction / 5)) / 2 - 15,
                                     this.displayHeight - (bass.Height / bassReduction / 5),
                                     bass.Width / bassReduction / 3, bass.Height / bassReduction / 10);
+            playerBass.Open(new Uri(exeDir + "\\Sounds\\Bass.wav"));
+
             snareHitRect = new Rect((this.displayWidth / 2) + (bass.Width / bassReduction / 3),
                                     this.displayHeight - ((bass.Height / bassReduction) + (snare.Height / snareReduction / 2)),
                                     snare.Width / snareReduction, snare.Height / snareReduction / 2);
+            playerSnare.Open(new Uri(exeDir + "\\Sounds\\Snare.wav"));
+
             hihatHitRect = new Rect((this.displayWidth / 4) + (bass.Width / bassReduction / 10),
                                     this.displayHeight - ((bass.Height / bassReduction * 2) + (snare.Height / snareReduction / 5)),
                                     snare.Width / snareReduction, snare.Height / snareReduction / 2);
-            //////////////////////////////////////////
-            exeDir = System.IO.Path.GetDirectoryName(exePath);
-            playerBass.Open(new Uri(exeDir + "\\Sounds\\Bass.wav"));
-            playerSnare.Open(new Uri(exeDir + "\\Sounds\\Snare.wav"));
             playerHihat.Open(new Uri(exeDir + "\\Sounds\\Hihat.wav"));
+            /*****************************************************************************************************************/
         }
 
         // Obtiene el bitmap
@@ -235,8 +230,6 @@
         }
 
         // Handles the body frame data arriving from the sensor
-        // <param name="sender">object sending the event</param>
-        // <param name="e">event arguments</param>
         private void Reader_FrameArrived(object sender, BodyFrameArrivedEventArgs e) {
 
             bool dataReceived = false;
@@ -262,8 +255,10 @@
 
                 using (DrawingContext dc = this.drawingGroup.Open()) {
 
+                    /*******************************************************/
                     // Dibuja la batería
                     this.DrawDrums(dc);
+                    /*******************************************************/
 
                     // Draw a transparent background to set the render size
                     dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
@@ -314,10 +309,6 @@
         }
 
         // Draws a body
-        // <param name="joints">joints to draw</param>
-        // <param name="jointPoints">translated positions of joints to draw</param>
-        // <param name="drawingContext">drawing context to draw to</param>
-        // <param name="drawingPen">specifies color to draw a specific body</param>
         private void DrawBody(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, DrawingContext drawingContext, Pen drawingPen) {
 
             // Draw the bones
@@ -350,12 +341,6 @@
         }
 
         // Draws one bone of a body (joint to joint)
-        // <param name="joints">joints to draw</param>
-        // <param name="jointPoints">translated positions of joints to draw</param>
-        // <param name="jointType0">first joint of bone to draw</param>
-        // <param name="jointType1">second joint of bone to draw</param>
-        // <param name="drawingContext">drawing context to draw to</param>
-        // /// <param name="drawingPen">specifies color to draw a specific bone</param>
         private void DrawBone(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, JointType jointType0, JointType jointType1, DrawingContext drawingContext, Pen drawingPen) {
 
             Joint joint0 = joints[jointType0];
@@ -378,53 +363,36 @@
             drawingContext.DrawLine(drawPen, jointPoints[jointType0], jointPoints[jointType1]);
         }
 
-        // Draws a hand symbol if the hand is tracked: red circle = closed, green circle = opened; blue circle = lasso
-        // <param name="handState">state of the hand</param>
-        // <param name="handPosition">position of the hand</param>
-        // <param name="drawingContext">drawing context to draw to</param>
+        /*****************************************************************************************************************/
+        // Dibuja un circulo en la mano
         private void DrawHand(HandState handState, Point handPosition, DrawingContext drawingContext) {
 
-            switch (handState) {
-
-                case HandState.Closed:
-                    drawingContext.DrawEllipse(this.handClosedBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                case HandState.Open:
-                    drawingContext.DrawEllipse(this.handOpenBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                case HandState.Lasso:
-                    drawingContext.DrawEllipse(this.handLassoBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                default:
-                    drawingContext.DrawEllipse(this.handBrush, null, handPosition, HandSize, HandSize);
-                    break;
-            }
+            drawingContext.DrawEllipse(this.handBrush, null, handPosition, HandSize, HandSize);
         }
 
+        //Dibuja la batería
         private void DrawDrums(DrawingContext drawingContext) {
 
-            //Bombo
+            //Bass
             drawingContext.DrawImage(bass, new Rect((this.displayWidth-(bass.Width/bassReduction))/2, 
                                                         this.displayHeight-(bass.Height/bassReduction), 
                                                         bass.Width/bassReduction, bass.Height/bassReduction));
-            drawingContext.DrawRectangle(this.handOpenBrush,null,bassHitRect);
+            drawingContext.DrawRectangle(this.handBrush,null,bassHitRect);
 
             //Snare
             drawingContext.DrawImage(snare, new Rect((this.displayWidth/2)+(bass.Width / bassReduction / 3), 
                                                         this.displayHeight - ((bass.Height / bassReduction)+(snare.Height/snareReduction/2)),
                                                         snare.Width / snareReduction, snare.Height / snareReduction));
-            drawingContext.DrawRectangle(this.handOpenBrush, null, snareHitRect);
+            drawingContext.DrawRectangle(this.handBrush, null, snareHitRect);
 
-            //HitHat
-            drawingContext.DrawRectangle(this.handOpenBrush, null, hihatHitRect);
+            //HiHat
+            drawingContext.DrawRectangle(this.handBrush, null, hihatHitRect);
         }
 
         // Maneja cuando golpeas un tambor
         private void OnDrumHit(Point LeftHand, Point RightHand, Point LeftFoot, Point RightFoot) {
 
+            // Bass Hit
             if ((bassHitRect.Contains(LeftFoot) || bassHitRect.Contains(RightFoot)) && !bassHit) {
 
                 bassHit = true;
@@ -436,6 +404,7 @@
                 bassHit = false;
             }
 
+            // Snare Hit
             if ((snareHitRect.Contains(LeftHand) || snareHitRect.Contains(RightHand)) && !snareHit) {
 
                 snareHit = true;
@@ -447,6 +416,7 @@
                 snareHit = false;
             }
 
+            // Hihat Hit
             if((hihatHitRect.Contains(LeftHand) || hihatHitRect.Contains(RightHand)) && !hihatHit) {
 
                 hihatHit = true;
@@ -458,5 +428,7 @@
                 hihatHit = false;
             }
         }
+
+        /*****************************************************************************************************************/
     }
 }
