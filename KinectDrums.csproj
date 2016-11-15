@@ -144,6 +144,12 @@
     <Resource Include="Images\hihat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\hihatstand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Pedal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
