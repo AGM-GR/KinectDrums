@@ -1,9 +1,8 @@
-﻿using System;
+﻿namespace NPI.KinectDrums.DataModel {
+    using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
-namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel {
 
     public class Drum {
 
@@ -17,36 +16,22 @@ namespace Microsoft.Samples.Kinect.ControlsBasics.DataModel {
         private bool hitted = false;
 
         //Sonido
-        private string soundSource = string.Empty;
         MediaPlayer sound = new MediaPlayer();
 
         //Imagen
-        private string imageSource = string.Empty;
-        private double imageReduction;
         private BitmapImage image = null;
 
         //True si se golpea con la mano, false si es con los pies
         private bool handHit = true;
 
         //Constructor
-        public Drum (Rect position, Rect hitArea, string soundSource, string imageSource, double imageReduction, bool handHit) {
+        public Drum (Rect position, Rect hitArea, MediaPlayer sound, BitmapImage image, bool handHit) {
 
             this.position = position;
             this.hitArea = hitArea;
-            this.soundSource = soundSource;
-            this.imageSource = imageSource;
-            this.imageReduction = imageReduction;
+            this.sound = sound;
+            this.image = image;
             this.handHit = handHit;
-        }
-
-        //Inicializa el drum
-        public void initialize() {
-            
-            //Crea la imagen
-            image = new BitmapImage(new Uri(imageSource, UriKind.RelativeOrAbsolute));
-
-            //Crea el sonido
-            sound.Open(new Uri(soundSource, UriKind.RelativeOrAbsolute));
         }
 
         //Dibuja la imagen en la posicion.
