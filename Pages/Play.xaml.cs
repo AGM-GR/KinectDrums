@@ -207,15 +207,6 @@
 
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
             }
-
-            else
-
-                using (DrawingContext dc = this.drawingGroup.Open()) {
-
-                    // Dibuja la batería
-                    this.DrawDrums(dc);
-                }
-
         }
 
         // Funcion para cerrar correctamente el programa
