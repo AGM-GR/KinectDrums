@@ -8,7 +8,7 @@
     using Microsoft.Kinect;
     using System.Windows.Media.Imaging;
 
-    public partial class Play : UserControl {
+    public partial class Personalize : UserControl {
 
         // Radius of drawn hand circles
         private const double HandSize = 10;
@@ -92,7 +92,7 @@
 
 
         // Inicializa una instancia de la clase Play.
-        public Play() {
+        public Personalize() {
 
             // Obtiene el sensor por defecto
             this.kinectSensor = KinectSensor.GetDefault();
@@ -201,7 +201,7 @@
         }
 
         // Inicia el Programa, iniciando la llegada de frames
-        private void Play_Loaded(object sender, RoutedEventArgs e) {
+        private void Personalize_Loaded(object sender, RoutedEventArgs e) {
 
             if (this.bodyFrameReader != null) {
 
@@ -210,7 +210,7 @@
         }
 
         // Funcion para cerrar correctamente el programa
-        public void Play_Closing() {
+        public void Personalize_Closing() {
 
             if (this.bodyFrameReader != null) {
 

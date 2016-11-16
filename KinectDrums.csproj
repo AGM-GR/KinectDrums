@@ -65,8 +65,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\BindableBase.cs" />
+    <Compile Include="DataModel\Drum.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="HandPointers\HandInScreenEngagementModel.cs" />
+    <Compile Include="Pages\Personalize.xaml.cs">
+      <DependentUpon>Personalize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Play.xaml.cs">
       <DependentUpon>Play.xaml</DependentUpon>
     </Compile>
@@ -90,6 +94,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Personalize.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Play.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
