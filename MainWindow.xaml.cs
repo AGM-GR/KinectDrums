@@ -39,6 +39,10 @@
 
                 navigationRegion.Content = Activator.CreateInstance(sampleDataItem.NavigationPage);
             }
+            else if (sampleDataItem != null) {
+
+                GoBack(this,null);
+            }
         }
 
         // Maneja el funcionamiento del botón GoBack.

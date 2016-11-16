@@ -68,21 +68,21 @@
         private string exeDir;
 
         // Bass Variables
-        private BitmapImage bass = new BitmapImage(new Uri("pack://application:,,,/Images/bass.png", UriKind.Absolute));
+        private BitmapImage bass = new BitmapImage(new Uri("pack://application:,,,/Images/Bass.png", UriKind.Absolute));
         double bassReduction = 2.2;
         Rect bassHitRect;
         bool bassHit = false;
         MediaPlayer playerBass = new MediaPlayer();
 
         // Snare Variables
-        BitmapImage snare = new BitmapImage(new Uri("pack://application:,,,/Images/snare.png", UriKind.Absolute));
+        BitmapImage snare = new BitmapImage(new Uri("pack://application:,,,/Images/Snare.png", UriKind.Absolute));
         double snareReduction = 5.6;
         Rect snareHitRect;
         bool snareHit = false;
         MediaPlayer playerSnare = new MediaPlayer();
 
         // Hihat Variables
-        BitmapImage hihat = new BitmapImage(new Uri("pack://application:,,,/Images/hihat.png", UriKind.Absolute));
+        BitmapImage hihat = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
         double hihatHitReduction = 5.6;
         Rect hihatHitRect;
         bool hihatHit = false;

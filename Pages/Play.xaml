@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
-            <Image Source="/Images/garage.jpg" Stretch="UniformToFill" />
+            <Image Source="/Images/GarageBackground.jpg" Stretch="UniformToFill" />
             <Viewbox HorizontalAlignment="Center">
                 <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
             </Viewbox>

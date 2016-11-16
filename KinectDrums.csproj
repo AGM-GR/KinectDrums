@@ -136,26 +136,33 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\garage.jpg">
+    <Resource Include="Images\GarageBackground.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\bass.png">
+    <Resource Include="Images\Bass.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\snare.png">
+    <Resource Include="Images\Snare.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\hihat.png">
+    <Resource Include="Images\Hihat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\hihatstand.png">
+    <Resource Include="Images\HihatStand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Pedal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Icono.png" />
+    <Resource Include="Images\Logo.png" />
+    <Resource Include="Images\MiddleTom.png" />
+    <Resource Include="Images\FloorTom.png" />
+    <Resource Include="Images\GarageBackgroundBlur.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Sounds\Bass.wav">

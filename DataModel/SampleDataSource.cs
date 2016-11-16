@@ -18,7 +18,7 @@
 
         private ObservableCollection<SampleDataCollection> allGroups = new ObservableCollection<SampleDataCollection>();
 
-        private const string garageImage = "/Images/garage.jpg";
+        private const string garageImage = "/Images/GarageBackground.jpg";
 
         public SampleDataSource() {
 
@@ -39,26 +39,27 @@
                 "Play Now",
                 "Play a default drum kit",
                 garageImage,
-                "Item Description: Start playing whith a default drum kit.",
+                "Start playing whith a default drum kit.",
                 itemContent,
                 group1,
                 typeof(Play)));
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-2",
-                "Item Title: 2",
-                "Item Subtitle: 2",
+                "Personalize",
+                "Porsonalize your dum kit",
                 garageImage,
-                "Item Description: Inutil.",
+                "Do your own drum kit and play it.",
                 itemContent,
-                group1));
+                group1,
+                typeof(Personalize)));
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-3",
-                "Item Title: 3",
-                "Item Subtitle: 3",
+                "Exit",
+                "",
                 garageImage,
-                "Item Description: Inutil.",
+                "Exit Kinect Drums.",
                 itemContent,
                 group1));
             

@@ -1149,8 +1149,8 @@
     for HandPointers
     -->
     <Style x:Key="BackButtonStyle" TargetType="Button">
-        <Setter Property="MinWidth" Value="40"/>
-        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="MinWidth" Value="10"/>
+        <Setter Property="MinHeight" Value="10"/>
         <Setter Property="Padding" Value="36,10,36,10" />
         <Setter Property="k:KinectRegion.KinectPressInset" Value="36,10,36,10" />
         <Setter Property="VerticalAlignment" Value="Bottom"/>        
@@ -1163,10 +1163,10 @@
                 <ControlTemplate TargetType="Button">
                     <Grid x:Name="RootGrid">
                         <Border Padding="{TemplateBinding Padding}" Background="Transparent">
-                            <Grid Margin="-1,-16,0,0">
-                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="Black" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="56" />
-                                <TextBlock x:Name="NormalGlyph" Text="&#xE071;" Foreground="Black" FontFamily="Segoe UI Symbol" FontSize="56" />
-                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="White" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="56"/>
+                            <Grid Margin="-8,-35,0,-25">
+                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0A8;" Foreground="White" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="90" />
+                                <TextBlock x:Name="NormalGlyph" Text="&#xE071;" Foreground="White" FontFamily="Segoe UI Symbol" FontSize="90" />
+                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0A6;" Foreground="Black" Opacity="0" FontFamily="Segoe UI Symbol" FontSize="90"/>
                             </Grid>
                         </Border>
                         <Rectangle
@@ -1230,12 +1230,12 @@
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualWhite"
+                                            Storyboard.TargetName="FocusVisualBlack"
                                             Storyboard.TargetProperty="Opacity"
                                             To="1"
                                             Duration="0"/>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualBlack"
+                                            Storyboard.TargetName="FocusVisualWhite"
                                             Storyboard.TargetProperty="Opacity"
                                             To="1"
                                             Duration="0"/>
