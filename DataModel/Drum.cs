@@ -1,32 +1,33 @@
 ﻿namespace NPI.KinectDrums.DataModel {
+
     using System;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+    using System.Windows;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
 
     public class Drum {
 
         //Posición
-        private Rect position;
+        private Rect position = new Rect();
 
         //Area de golpe
-        private Rect hitArea;
+        private Rect hitArea = new Rect();
         
         //Controla si se está golpeando
-        private bool hitted = false;
+        private bool hit = false;
 
         //Sonido
         MediaPlayer sound = new MediaPlayer();
 
         //Imagen
         private BitmapImage image = null;
-        private double imageReduction;
+        private double imageReduction = 0;
 
-        //True si se golpea con la mano, false si es con los pies
-        private bool handHit = true;
+        //1 si se golpea con la mano, 0 si es con los pies, 2 si puede ser con ambos
+        private int handHit = 1;
 
         //Constructor
-        public Drum (Rect position, Rect hitArea, MediaPlayer sound, BitmapImage image, double imageReduction, bool handHit) {
+        public Drum (Rect position, Rect hitArea, MediaPlayer sound, BitmapImage image, double imageReduction, int handHit) {
 
             this.position = position;
             this.hitArea = hitArea;
@@ -51,16 +52,16 @@ using System.Windows.Media.Imaging;
         //Reproduce el sonido al golpear el tambor.
         public void HitDrum (Point LeftHitter, Point RightHitter) {
 
-            if ((hitArea.Contains(LeftHitter) || hitArea.Contains(RightHitter)) && !hitted) {
+            if ((hitArea.Contains(LeftHitter) || hitArea.Contains(RightHitter)) && !hit) {
 
-                hitted = true;
+                hit = true;
                 sound.Stop();
                 sound.Play();
 
             }
             else if (!(hitArea.Contains(LeftHitter) || hitArea.Contains(RightHitter))) {
 
-                hitted = false;
+                hit = false;
             }
         }
 
@@ -90,8 +91,84 @@ using System.Windows.Media.Imaging;
             get { return hitArea; }
         }
 
-        public bool Hited {
-            get { return hitted; }
+        public bool Hit {
+            get { return hit; }
+        }
+
+        public int HandHit {
+            get { return handHit; }
+        }
+    }
+
+    public class Hihat : Drum {
+
+        //Imagen del plato del hihat
+        private Rect hitCrash = new Rect();
+
+        //Sonidos del hihat abierto y cerrado
+        MediaPlayer soundOpen = new MediaPlayer();
+        MediaPlayer soundClosed = new MediaPlayer();
+
+        //Controla si se está golpeando
+        private bool crashHit = false;
+
+        //Constructor, establece la clase padre como el pedal y añade el plato y los sonidos del plato
+        public Hihat(Rect position, Rect hitCrash, Rect hitPedal, MediaPlayer soundOpen, MediaPlayer soundClosed, MediaPlayer soundPedal, BitmapImage image, double imageReduction) 
+            : base(position,hitPedal,soundPedal,image,imageReduction,0) {
+
+            this.hitCrash = hitCrash;
+            this.soundClosed = soundClosed;
+            this.soundOpen = soundOpen;
+        }
+
+        //Dibuja el hitArea de un color determinado.
+        new public void DrawHit(DrawingContext drawingContext, Brush color) {
+
+            base.DrawHit(drawingContext, color);
+            drawingContext.DrawRectangle(color, null, hitCrash);
+        }
+
+        //Reproduce el sonido al golpear el tambor.
+        public void HitDrum(Point LeftHand, Point RightHand, Point LeftFoot, Point RightFoot) {
+
+            base.HitDrum (LeftFoot, RightFoot);
+
+            if ((hitCrash.Contains(LeftHand) || hitCrash.Contains(RightHand)) && !crashHit) {
+
+                crashHit = true;
+                if (base.Hit) {
+
+                    soundClosed.Stop();
+                    soundClosed.Play();
+                }
+                else {
+
+                    soundOpen.Stop();
+                    soundOpen.Play();
+                }
+
+            }
+            else if (!(hitCrash.Contains(LeftHand) || hitCrash.Contains(RightHand))) {
+
+                crashHit = false;
+            }
+        }
+
+        //Modificadores y Consultores//
+        public MediaPlayer SoundPedal {
+            get { return base.Sound; }
+        }
+
+        public MediaPlayer SoundClosed {
+            get { return soundClosed; }
+        }
+
+        public MediaPlayer SoundOpen {
+            get { return soundOpen; }
+        }
+
+        new public int HandHit {
+            get { return 3; }
         }
     }
 }

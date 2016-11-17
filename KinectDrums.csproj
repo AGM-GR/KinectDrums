@@ -152,12 +152,6 @@
     <Resource Include="Images\Hihat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\HihatStand.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Pedal.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Images\Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

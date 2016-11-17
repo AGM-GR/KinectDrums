@@ -159,44 +159,41 @@
             MediaPlayer player = new MediaPlayer();
             BitmapImage Image = new BitmapImage();
             double Reduction = 0;
-            Rect HitRect = new Rect();
 
             //Bass
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Bass.png", UriKind.Absolute));
             player.Open(new Uri("Sounds/Bass.wav", UriKind.Relative));
             Reduction = 2.2;
-            HitRect = new Rect((this.displayWidth - (Image.Width / Reduction / 5)) / 2 - 15,
-                                    this.displayHeight - (Image.Height / Reduction / 5),
-                                    Image.Width / Reduction / 3, Image.Height / Reduction / 10);
 
             bass = new Drum(
                 new Rect((this.displayWidth - (Image.Width / Reduction)) / 2,
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
-                HitRect,
+                new Rect((this.displayWidth - (Image.Width / Reduction / 5)) / 2,
+                          this.displayHeight - (Image.Height / Reduction / 10),
+                          Image.Width / Reduction / 5, Image.Height / Reduction / 10),
                 player,
                 Image,
                 Reduction,
-                false 
+                0 
             );
 
             //Snare
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Snare.png", UriKind.Absolute));
             player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
-            Reduction = 5.6;
-            HitRect = new Rect((this.displayWidth / 2) + (bass.Width/ 3),
-                                    this.displayHeight - ((bass.Height) + (snare.Height / Reduction)),
-                                    snare.Width / Reduction, snare.Height / Reduction);
+            Reduction = 2;
 
             snare = new Drum(
                 new Rect((this.displayWidth / 2) + (bass.Width / 3),
-                          this.displayHeight - ((bass.Height) + (snare.Height / Reduction / 2)),
-                          snare.Width / Reduction, snare.Height / Reduction),
-                HitRect,
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          Image.Width / Reduction, Image.Height / Reduction),
+                new Rect((this.displayWidth / 2) + (bass.Width / 3),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          Image.Width / Reduction, Image.Height / Reduction / 2),
                 player,
                 Image,
                 Reduction,
-                true
+                1
             );
 
 
@@ -204,19 +201,18 @@
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
             player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
             Reduction = 5.6;
-            HitRect = new Rect((this.displayWidth / 4) + (bass.Width / 10),
-                                    this.displayHeight - ((bass.Height * 2) + (snare.Height/ 5)),
-                                    snare.Width, snare.Height / 2);
 
             hihat = new Drum(
+                new Rect((this.displayWidth / 2) + bass.Width + (Image.Width / Reduction),
+                          this.displayHeight - (Image.Height / Reduction / 15),
+                          Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 4) + (bass.Width / 10),
-                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
-                          snare.Width / Reduction, snare.Height / Reduction),
-                HitRect,
+                          this.displayHeight - ((bass.Height * 2) + (snare.Height / 5)),
+                          snare.Width, snare.Height / 2),
                 player,
                 Image,
                 Reduction,
-                true
+                1
             );
 
             /*****************************************************************************************************************/
