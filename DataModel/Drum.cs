@@ -20,17 +20,19 @@ using System.Windows.Media.Imaging;
 
         //Imagen
         private BitmapImage image = null;
+        private double imageReduction;
 
         //True si se golpea con la mano, false si es con los pies
         private bool handHit = true;
 
         //Constructor
-        public Drum (Rect position, Rect hitArea, MediaPlayer sound, BitmapImage image, bool handHit) {
+        public Drum (Rect position, Rect hitArea, MediaPlayer sound, BitmapImage image, double imageReduction, bool handHit) {
 
             this.position = position;
             this.hitArea = hitArea;
             this.sound = sound;
             this.image = image;
+            this.imageReduction = imageReduction;
             this.handHit = handHit;
         }
 
@@ -69,10 +71,19 @@ using System.Windows.Media.Imaging;
 
         public Rect Position {
             get { return position;  }
+            set { this.position = value; }
         }
 
         public BitmapImage Image {
             get { return image; }
+        }
+
+        public double Width {
+            get { return (image.Width / imageReduction); }
+        }
+
+        public double Height {
+            get { return (image.Height / imageReduction); }
         }
 
         public Rect HitArea {

@@ -115,11 +115,6 @@
         private string image = string.Empty;
 
         // Initializes a new instance of the <see cref="SampleDataCommon" /> class.
-        // <param name="uniqueId">The unique id of this item.</param>
-        // <param name="title">The title of this item.</param>
-        // <param name="subtitle">The subtitle of this item.</param>
-        // <param name="imagePath">A relative path of the image for this item.</param>
-        // <param name="description">A description of this item.</param>
         protected SampleDataCommon(string uniqueId, string title, string subtitle, string image, string description) {
 
             this.uniqueId = uniqueId;
@@ -158,7 +153,7 @@
 
             get { return this.image; }
 
-            set { this.SetProperty(ref this.image, "/Images/garage.jpg")/*this.SetProperty(ref this.image, value)*/; }
+            set { this.SetProperty(ref this.image, value); }
         }
 
         public override string ToString() {
@@ -183,14 +178,6 @@
         }
 
         // Initializes a new instance of the <see cref="SampleDataItem" /> class.
-        // <param name="uniqueId">The unique id of this item.</param>
-        // <param name="title">The title of this item.</param>
-        // <param name="subtitle">The subtitle of this item.</param>
-        // <param name="imagePath">A relative path of the image for this item.</param>
-        // <param name="description">A description of this item.</param>
-        // <param name="content">The content of this item.</param>
-        // <param name="group">The group of this item.</param>
-        // <param name="navigationPage">What page should launch when clicking this item.</param>
         public SampleDataItem(string uniqueId, string title, string subtitle, string image, string description, string content, SampleDataCollection group, Type navigationPage)
             : base(uniqueId, title, subtitle, image, description) {
 

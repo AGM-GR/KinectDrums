@@ -64,31 +64,9 @@
 
         /*****************************************************************************************************************/
         //DrumKit variables
-        // Drum elements players
-        private string exePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
-        private string exeDir;
-
-        // Bass Variables
         private Drum bass;
-        private BitmapImage bassImage = new BitmapImage(new Uri("pack://application:,,,/Images/Bass.png", UriKind.Absolute));
-        double bassReduction = 2.2;
-        Rect bassHitRect;
-        bool bassHit = false;
-        MediaPlayer playerBass = new MediaPlayer();
-
-        // Snare Variables
-        BitmapImage snare = new BitmapImage(new Uri("pack://application:,,,/Images/Snare.png", UriKind.Absolute));
-        double snareReduction = 5.6;
-        Rect snareHitRect;
-        bool snareHit = false;
-        MediaPlayer playerSnare = new MediaPlayer();
-
-        // Hihat Variables
-        BitmapImage hihat = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
-        double hihatHitReduction = 5.6;
-        Rect hihatHitRect;
-        bool hihatHit = false;
-        MediaPlayer playerHihat = new MediaPlayer();
+        private Drum snare;
+        private Drum hihat;
         /*****************************************************************************************************************/
 
 
@@ -178,31 +156,69 @@
             /*****************************************************************************************************************/
             // Inicializa la batería
 
-            exeDir = System.IO.Path.GetDirectoryName(exePath);
+            MediaPlayer player = new MediaPlayer();
+            BitmapImage Image = new BitmapImage();
+            double Reduction = 0;
+            Rect HitRect = new Rect();
 
-            bassHitRect = new Rect((this.displayWidth - (bassImage.Width / bassReduction / 5)) / 2 - 15,
-                                    this.displayHeight - (bassImage.Height / bassReduction / 5),
-                                    bassImage.Width / bassReduction / 3, bassImage.Height / bassReduction / 10);
-            playerBass.Open(new Uri(exeDir + "\\Sounds\\Bass.wav"));
+            //Bass
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/Bass.png", UriKind.Absolute));
+            player.Open(new Uri("Sounds/Bass.wav", UriKind.Relative));
+            Reduction = 2.2;
+            HitRect = new Rect((this.displayWidth - (Image.Width / Reduction / 5)) / 2 - 15,
+                                    this.displayHeight - (Image.Height / Reduction / 5),
+                                    Image.Width / Reduction / 3, Image.Height / Reduction / 10);
 
             bass = new Drum(
-                new Rect((this.displayWidth - (bassImage.Width / bassReduction)) / 2,
-                          this.displayHeight - (bassImage.Height / bassReduction),
-                          bassImage.Width / bassReduction, bassImage.Height / bassReduction),
-                bassHitRect,
-                playerBass,
-                bassImage,
-                false );
+                new Rect((this.displayWidth - (Image.Width / Reduction)) / 2,
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction, Image.Height / Reduction),
+                HitRect,
+                player,
+                Image,
+                Reduction,
+                false 
+            );
 
-            snareHitRect = new Rect((this.displayWidth / 2) + (bassImage.Width / bassReduction / 3),
-                                    this.displayHeight - ((bassImage.Height / bassReduction) + (snare.Height / snareReduction / 2)),
-                                    snare.Width / snareReduction, snare.Height / snareReduction / 2);
-            playerSnare.Open(new Uri(exeDir + "\\Sounds\\Snare.wav"));
+            //Snare
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/Snare.png", UriKind.Absolute));
+            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            Reduction = 5.6;
+            HitRect = new Rect((this.displayWidth / 2) + (bass.Width/ 3),
+                                    this.displayHeight - ((bass.Height) + (snare.Height / Reduction)),
+                                    snare.Width / Reduction, snare.Height / Reduction);
 
-            hihatHitRect = new Rect((this.displayWidth / 4) + (bassImage.Width / bassReduction / 10),
-                                    this.displayHeight - ((bassImage.Height / bassReduction * 2) + (snare.Height / snareReduction / 5)),
-                                    snare.Width / snareReduction, snare.Height / snareReduction / 2);
-            playerHihat.Open(new Uri(exeDir + "\\Sounds\\Hihat.wav"));
+            snare = new Drum(
+                new Rect((this.displayWidth / 2) + (bass.Width / 3),
+                          this.displayHeight - ((bass.Height) + (snare.Height / Reduction / 2)),
+                          snare.Width / Reduction, snare.Height / Reduction),
+                HitRect,
+                player,
+                Image,
+                Reduction,
+                true
+            );
+
+
+            //Hihat
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
+            player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
+            Reduction = 5.6;
+            HitRect = new Rect((this.displayWidth / 4) + (bass.Width / 10),
+                                    this.displayHeight - ((bass.Height * 2) + (snare.Height/ 5)),
+                                    snare.Width, snare.Height / 2);
+
+            hihat = new Drum(
+                new Rect((this.displayWidth / 4) + (bass.Width / 10),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          snare.Width / Reduction, snare.Height / Reduction),
+                HitRect,
+                player,
+                Image,
+                Reduction,
+                true
+            );
+
             /*****************************************************************************************************************/
         }
 
@@ -378,64 +394,29 @@
         private void DrawDrums(DrawingContext drawingContext) {
 
             //Bass
-            /*drawingContext.DrawImage(bassImage, new Rect((this.displayWidth-(bassImage.Width/bassReduction))/2, 
-                                                        this.displayHeight-(bassImage.Height/bassReduction),
-                                                        bassImage.Width/bassReduction, bassImage.Height/bassReduction));
-            drawingContext.DrawRectangle(this.handBrush,null,bassHitRect);*/
-
             bass.Draw(drawingContext);
             bass.DrawHit(drawingContext, this.handBrush);
 
             //Snare
-            drawingContext.DrawImage(snare, new Rect((this.displayWidth/2)+(bassImage.Width / bassReduction / 3), 
-                                                        this.displayHeight - ((bassImage.Height / bassReduction)+(snare.Height/snareReduction/2)),
-                                                        snare.Width / snareReduction, snare.Height / snareReduction));
-            drawingContext.DrawRectangle(this.handBrush, null, snareHitRect);
+            snare.Draw(drawingContext);
+            snare.DrawHit(drawingContext, this.handBrush);
 
             //HiHat
-            drawingContext.DrawRectangle(this.handBrush, null, hihatHitRect);
+            hihat.Draw(drawingContext);
+            hihat.DrawHit(drawingContext, this.handBrush);
         }
 
         // Maneja cuando golpeas un tambor
         private void OnDrumHit(Point LeftHand, Point RightHand, Point LeftFoot, Point RightFoot) {
 
             // Bass Hit
-            /*if ((bassHitRect.Contains(LeftFoot) || bassHitRect.Contains(RightFoot)) && !bassHit) {
-
-                bassHit = true;
-                playerBass.Stop();
-                playerBass.Play();
-
-            }
-            else if(!(bassHitRect.Contains(LeftFoot) || bassHitRect.Contains(RightFoot))) {
-                bassHit = false;
-            }*/
-
             bass.HitDrum(LeftFoot, RightFoot);
 
             // Snare Hit
-            if ((snareHitRect.Contains(LeftHand) || snareHitRect.Contains(RightHand)) && !snareHit) {
-
-                snareHit = true;
-                playerSnare.Stop();
-                playerSnare.Play();
-
-            }
-            else if(!(snareHitRect.Contains(LeftHand) || snareHitRect.Contains(RightHand))) {
-                snareHit = false;
-            }
+            snare.HitDrum(LeftHand, RightHand);
 
             // Hihat Hit
-            if((hihatHitRect.Contains(LeftHand) || hihatHitRect.Contains(RightHand)) && !hihatHit) {
-
-                hihatHit = true;
-                playerHihat.Stop();
-                playerHihat.Play();
-
-            }
-            else if (!(hihatHitRect.Contains(LeftHand) || hihatHitRect.Contains(RightHand))) {
-                hihatHit = false;
-            }
+            hihat.HitDrum(LeftHand, RightHand);
         }
 
         /*****************************************************************************************************************/
