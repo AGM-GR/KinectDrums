@@ -46,16 +46,26 @@
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-2",
-                "Personalize",
-                "Porsonalize your dum kit",
+                "Customize",
+                "Customize your drum kit",
                 garageImage,
-                "Do your own drum kit and play it.",
+                "Create your own drum kit and play it.",
                 itemContent,
                 group1,
                 typeof(Personalize)));
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-3",
+                "Help",
+                "Lost? Get some help",
+                garageImage,
+                "Maybe I can lend you a hand.",
+                itemContent,
+                group1,
+                typeof(Help)));
+            group1.Items.Add(
+                new SampleDataItem(
+                "Group-1-Item-4",
                 "Exit",
                 "",
                 garageImage,
