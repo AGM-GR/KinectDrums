@@ -66,6 +66,8 @@
         //DrumKit variables
         private Drum bass;
         private Drum snare;
+        private Drum middleTom;
+        private Drum floorTom;
         private Hihat hihat;
         /*****************************************************************************************************************/
 
@@ -196,6 +198,42 @@
                 1
             );
 
+
+            //Middle Tom
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
+            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            Reduction = 9;
+
+            middleTom = new Drum(
+                new Rect((this.displayWidth / 2) - (bass.Width / 2),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          Image.Width / Reduction, Image.Height / Reduction),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          Image.Width / Reduction, Image.Height / Reduction / 2),
+                player,
+                Image,
+                Reduction,
+                1
+            );
+
+            //Floor Tom
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/FloorTom.png", UriKind.Absolute));
+            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            Reduction = 12;
+
+            floorTom = new Drum(
+                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction, Image.Height / Reduction),
+                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction, Image.Height / Reduction / 2),
+                player,
+                Image,
+                Reduction,
+                1
+            );
 
             //Hihat
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
@@ -392,17 +430,25 @@
         //Dibuja la batería
         private void DrawDrums(DrawingContext drawingContext) {
 
-            //Bass
-            bass.Draw(drawingContext);
-            bass.DrawHit(drawingContext, this.handBrush);
-
-            //Snare
-            snare.Draw(drawingContext);
-            snare.DrawHit(drawingContext, this.handBrush);
+            //Floor Tom
+            floorTom.Draw(drawingContext);
+            //floorTom.DrawHit(drawingContext, this.handBrush);
 
             //HiHat
             hihat.Draw(drawingContext);
-            hihat.DrawHit(drawingContext, this.handBrush);
+            //hihat.DrawHit(drawingContext, this.handBrush);
+
+            //Bass
+            bass.Draw(drawingContext);
+            //bass.DrawHit(drawingContext, this.handBrush);
+
+            //Snare
+            snare.Draw(drawingContext);
+            //snare.DrawHit(drawingContext, this.handBrush);
+
+            //Middle Tom
+            middleTom.Draw(drawingContext);
+            //middleTom.DrawHit(drawingContext, this.handBrush);
         }
 
         // Maneja cuando golpeas un tambor
@@ -413,6 +459,12 @@
 
             // Snare Hit
             snare.HitDrum(LeftHand, RightHand);
+
+            //Middle Tom
+            middleTom.HitDrum(LeftHand, RightHand);
+
+            //Floor Tom
+            floorTom.HitDrum(LeftHand, RightHand);
 
             // Hihat Hit
             hihat.HitDrum(LeftHand, RightHand);
