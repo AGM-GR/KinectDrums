@@ -168,7 +168,7 @@
         }
 
         new public int HandHit {
-            get { return 3; }
+            get { return 2; }
         }
     }
 }

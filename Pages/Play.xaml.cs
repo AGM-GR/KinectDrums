@@ -432,23 +432,23 @@
 
             //Floor Tom
             floorTom.Draw(drawingContext);
-            //floorTom.DrawHit(drawingContext, this.handBrush);
+            floorTom.DrawHit(drawingContext, this.handBrush);
 
             //HiHat
             hihat.Draw(drawingContext);
-            //hihat.DrawHit(drawingContext, this.handBrush);
+            hihat.DrawHit(drawingContext, this.handBrush);
 
             //Bass
             bass.Draw(drawingContext);
-            //bass.DrawHit(drawingContext, this.handBrush);
+            bass.DrawHit(drawingContext, this.handBrush);
 
             //Snare
             snare.Draw(drawingContext);
-            //snare.DrawHit(drawingContext, this.handBrush);
+            snare.DrawHit(drawingContext, this.handBrush);
 
             //Middle Tom
             middleTom.Draw(drawingContext);
-            //middleTom.DrawHit(drawingContext, this.handBrush);
+            middleTom.DrawHit(drawingContext, this.handBrush);
         }
 
         // Maneja cuando golpeas un tambor
@@ -467,7 +467,7 @@
             floorTom.HitDrum(LeftHand, RightHand);
 
             // Hihat Hit
-            hihat.HitDrum(LeftHand, RightHand);
+            hihat.HitDrum(LeftHand, RightHand, LeftFoot, RightFoot);
         }
 
         /*****************************************************************************************************************/
