@@ -52,7 +52,7 @@
                 "Create your own drum kit and play it.",
                 itemContent,
                 group1,
-                typeof(Personalize)));
+                typeof(Customize)));
             group1.Items.Add(
                 new SampleDataItem(
                 "Group-1-Item-3",

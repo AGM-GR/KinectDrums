@@ -71,8 +71,8 @@
     <Compile Include="Pages\Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Personalize.xaml.cs">
-      <DependentUpon>Personalize.xaml</DependentUpon>
+    <Compile Include="Pages\Customize.xaml.cs">
+      <DependentUpon>Customize.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Play.xaml.cs">
       <DependentUpon>Play.xaml</DependentUpon>
@@ -101,7 +101,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Personalize.xaml">
+    <Page Include="Pages\Customize.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
