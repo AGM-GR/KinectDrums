@@ -66,7 +66,7 @@
         //DrumKit variables
         private Drum bass;
         private Drum snare;
-        private Drum hihat;
+        private Hihat hihat;
         /*****************************************************************************************************************/
 
 
@@ -184,10 +184,10 @@
             Reduction = 2;
 
             snare = new Drum(
-                new Rect((this.displayWidth / 2) + (bass.Width / 3),
+                new Rect((this.displayWidth / 2) + (Image.Width / 8),
                           this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 2) + (bass.Width / 3),
+                new Rect((this.displayWidth / 2) + (Image.Width / 8),
                           this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
                           Image.Width / Reduction, Image.Height / Reduction / 2),
                 player,
@@ -200,21 +200,24 @@
             //Hihat
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
             player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
-            Reduction = 5.6;
+            Reduction = 5;
 
-            hihat = new Drum(
-                new Rect((this.displayWidth / 2) + bass.Width + (Image.Width / Reduction),
-                          this.displayHeight - (Image.Height / Reduction / 15),
+            hihat = new Hihat(
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction),
+                          this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 4) + (bass.Width / 10),
-                          this.displayHeight - ((bass.Height * 2) + (snare.Height / 5)),
-                          snare.Width, snare.Height / 2),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction) + 8,
+                          this.displayHeight - (Image.Height / Reduction) + (Image.Height / Reduction / 11),
+                          Image.Width / Reduction - 16, Image.Height / Reduction /7),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction / 2),
+                          this.displayHeight - (Image.Height / Reduction / 5),
+                          Image.Width / Reduction / 5, Image.Height / Reduction / 5),
+                player,
+                player,
                 player,
                 Image,
-                Reduction,
-                1
+                Reduction
             );
-
             /*****************************************************************************************************************/
         }
 
