@@ -8,7 +8,7 @@
     using Microsoft.Kinect;
     using System.Windows.Media.Imaging;
 
-    public partial class Personalize : UserControl {
+    public partial class Customize : UserControl {
 
         // Radius of drawn hand circles
         private const double HandSize = 10;
@@ -92,7 +92,7 @@
 
 
         // Inicializa una instancia de la clase Play.
-        public Personalize() {
+        public Customize() {
 
             // Obtiene el sensor por defecto
             this.kinectSensor = KinectSensor.GetDefault();
