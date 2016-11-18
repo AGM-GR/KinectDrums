@@ -138,9 +138,6 @@
   <ItemGroup>
     <Resource Include="HandPointers\HighlightRectangle.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\CursorSpriteSheet.png" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\GarageBackground.jpg">
