@@ -64,6 +64,9 @@
         private List<Pen> bodyColors;
 
         /*****************************************************************************************************************/
+        // Variable para indicar si está en modo editar o jugar
+        private bool editMode = true;
+
         //DrumKit variables
         private Drum bass;
         private Drum snare;
@@ -262,13 +265,6 @@
                 Reduction
             );
 
-            //INICIALIZAMOS VECTOR DE DRUM
-            drums.Add(bass);
-            drums.Add(floorTom);
-            drums.Add(middleTom);
-            drums.Add(snare);
-            hihats.Add(hihat);
-
             // Añade los botones en el lateral
             var sampleDataSource = SampleDataSource.GetGroup("DrumPieces");
             this.itemsControl.ItemsSource = sampleDataSource;
@@ -370,8 +366,18 @@
                             this.DrawCircle(body.HandLeftState, jointPoints[JointType.FootLeft], dc);
                             this.DrawCircle(body.HandRightState, jointPoints[JointType.FootRight], dc);
 
-                            //Comprueba si ha tocado un tambor
-                            OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
+                            /*************************************************************************************************************/
+                            //Si está en modo editar, deja mover los Drum
+                            if (editMode) {
+
+                                OnDrumDrag(body.HandLeftState, jointPoints[JointType.HandTipLeft]);
+                                OnDrumDrag(body.HandRightState, jointPoints[JointType.HandTipRight]);
+                            }
+                            else
+                                //Comprueba si ha tocado un tambor
+                                OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
+
+                            /*************************************************************************************************************/
 
                         }
                     }
@@ -478,15 +484,83 @@
 
         }
 
+        // Manjea cuando arrastras un Drum con la mano cerrada
+        private bool OnDrumDrag(HandState handState, Point handPosition) {
+
+            if (handState == HandState.Closed) { 
+
+                foreach (Drum dr in drums)
+
+                    if (dr.Position.Contains(handPosition)) {
+
+                        dr.MoveTo(handPosition);
+                        return true;
+                    }
+
+
+                foreach (Hihat ht in hihats)
+
+                    if (ht.HitArea.Contains(handPosition)) {
+
+                        ht.MoveTo(handPosition);
+                        return true;
+                    }
+            }
+
+            return false;
+        }
+
         // Maneja que hacer al pulsar un botón: ButtonClick
         private void ButtonClick(object sender, RoutedEventArgs e) {
 
             var button = (Button)e.OriginalSource;
             SampleDataItem sampleDataItem = button.DataContext as SampleDataItem;
 
-            if (sampleDataItem != null && sampleDataItem.NavigationPage != null) {
+            if (sampleDataItem != null) {
 
-                navigationRegion.Content = Activator.CreateInstance(sampleDataItem.NavigationPage);
+                switch (sampleDataItem.UniqueId) {
+
+                    case "bass":
+                        drums.Add(new Drum(bass));
+                    break;
+
+                    case "snare":
+                        drums.Add(new Drum(snare));
+                    break;
+
+                    case "middleTom":
+                        drums.Add(new Drum(middleTom));
+                    break;
+
+                    case "floorTom":
+                        drums.Add(new Drum(floorTom));
+                    break;
+
+                    case "crash":
+                        //drums.Add(new Drum(crash));
+                    break;
+
+                    case "hihat":
+                        hihats.Add(new Hihat(hihat));
+                    break;
+
+                }
+            }
+        }
+
+
+        // Maneja que hacer al pulsar un botón: PlayButtonClick
+        private void PlayButtonClick(object sender, RoutedEventArgs e) {
+
+            if (editMode) {
+                PlayButtonText.Text = "Customize";
+                navigationRegion.Visibility = Visibility.Hidden;
+                editMode = false;
+            }
+            else {
+                PlayButtonText.Text = "Play";
+                navigationRegion.Visibility = Visibility.Visible;
+                editMode = true;
             }
         }
 

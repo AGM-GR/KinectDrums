@@ -353,8 +353,12 @@
                             this.DrawCircle(body.HandLeftState, jointPoints[JointType.FootLeft], dc);
                             this.DrawCircle(body.HandRightState, jointPoints[JointType.FootRight], dc);
 
+                            /*************************************************************************************************************/
+
                             //Comprueba si ha tocado un tambor
                             OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
+
+                            /*************************************************************************************************************/
 
                         }
                     }

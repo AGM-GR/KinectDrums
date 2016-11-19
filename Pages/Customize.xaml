@@ -5,35 +5,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
-        d:DesignHeight="300" d:DesignWidth="400"
+        d:DesignHeight="600" d:DesignWidth="800"
         Loaded="Personalize_Loaded"
     >
-    
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500*" />
+            <ColumnDefinition Width="360"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300*" />
-                <ColumnDefinition Width="100*"/>
-            </Grid.ColumnDefinitions>
-            
-            <Image Source="/Images/GarageBackground.jpg" Stretch="UniformToFill" Grid.Column="0" Grid.ColumnSpan="2" />
-            
-            <Viewbox HorizontalAlignment="Center" Grid.Column="0">
-                <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
-            </Viewbox>
+        <Image Source="/Images/GarageBackground.jpg" Stretch="UniformToFill" Grid.Column="0" Grid.ColumnSpan="2" />
 
-            <ContentControl Grid.Column="1" x:Name="navigationRegion">
+        <Viewbox HorizontalAlignment="Center" Grid.Column="0">
+            <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
+        </Viewbox>
+
+        <Grid Grid.Column="1" Grid.Row="0" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Margin="75,20,75,30" Style="{StaticResource KinectTileButton}" Button.Click="PlayButtonClick">
+                <Border Background="Black" VerticalAlignment="Center">
+                    <TextBlock Name="PlayButtonText" Text="PLAY" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="50"/>
+                </Border>
+            </Button>
+
+            <ContentControl Grid.Row="1" x:Name="navigationRegion">
                 <Grid x:Name="kinectRegionGrid" Margin="0,0,0,0">
                     <ScrollViewer Name="scrollViewer" 
-                                  HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollBarVisibility="Auto" 
-                                  k:KinectRegion.IsScrollInertiaEnabled="true" >
-                        <ItemsControl Grid.Row="0" Name="itemsControl" ItemTemplate="{StaticResource KinectItemTemplate}" Button.Click="ButtonClick" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    HorizontalScrollBarVisibility="Disabled"
+                                    VerticalScrollBarVisibility="Auto" 
+                                    k:KinectRegion.IsScrollInertiaEnabled="true" >
+                        <ItemsControl Grid.Row="0" Name="itemsControl" ItemTemplate="{StaticResource KinectItemDrumTemplate}" Button.Click="ButtonClick" HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel VerticalAlignment="Center" Orientation="Vertical" Margin="75,0,75,0" />
@@ -43,8 +50,6 @@
                     </ScrollViewer>
                 </Grid>
             </ContentControl>
-            
         </Grid>
-        
     </Grid>
 </UserControl>

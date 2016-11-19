@@ -37,6 +37,17 @@
             this.handHit = handHit;
         }
 
+        //Constructor de copia
+        public Drum(Drum copy) {
+
+            this.position = copy.position;
+            this.hitArea = copy.hitArea;
+            this.sound = copy.sound;
+            this.image = copy.image;
+            this.imageReduction = copy.imageReduction;
+            this.handHit = copy.handHit;
+        }
+
         //Dibuja la imagen en la posicion.
         public void Draw (DrawingContext drawingContext) {
 
@@ -63,6 +74,16 @@
 
                 hit = false;
             }
+        }
+
+        public void MoveTo(Point point) {
+
+            double distanciaX = hitArea.Location.X - position.Location.X;
+            double distanciaY = hitArea.Location.Y - position.Location.Y;
+
+            position.Location = new Point(point.X - (Width/2), point.Y - (Height/2));
+            hitArea.Location = new Point(position.Location.X + distanciaX, position.Location.Y + distanciaY);
+
         }
 
         //Modificadores y Consultores//
@@ -119,6 +140,14 @@
             this.hitCrash = hitCrash;
             this.soundClosed = soundClosed;
             this.soundOpen = soundOpen;
+        }
+
+        //Constructor de copia
+        public Hihat(Hihat copy) : base(copy) {
+
+            this.hitCrash = copy.hitCrash;
+            this.soundClosed = copy.soundClosed;
+            this.soundOpen = copy.soundOpen;
         }
 
         //Dibuja el hitArea de un color determinado.

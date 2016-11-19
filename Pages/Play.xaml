@@ -4,22 +4,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d"
-        d:DesignHeight="300" d:DesignWidth="400"
+        d:DesignHeight="600" d:DesignWidth="800"
         Loaded="Play_Loaded"
     >
     
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
-            <Image Source="/Images/GarageBackground.jpg" Stretch="UniformToFill" />
-            <Viewbox HorizontalAlignment="Center">
-                <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
-            </Viewbox>
-        </Grid>
-        
+        <Image Source="/Images/GarageBackground.jpg" Stretch="UniformToFill" />
+        <Viewbox HorizontalAlignment="Center">
+            <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
+        </Viewbox>
+
     </Grid>
 </UserControl>
