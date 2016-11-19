@@ -196,9 +196,12 @@
     <Resource Include="Images\Icono.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\crash.png" />
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\ClosedHihat.wav" />
+    <Content Include="Sounds\CrashCymbal.wav" />
     <Content Include="Sounds\FloorTom.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
