@@ -172,6 +172,7 @@
 
             //Bass
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Bass.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Bass.wav", UriKind.Relative));
             Reduction = 2.2;
 
@@ -190,6 +191,7 @@
 
             //Snare
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Snare.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
             Reduction = 2;
 
@@ -209,6 +211,7 @@
 
             //Middle Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
             Reduction = 9;
 
@@ -227,6 +230,7 @@
 
             //Floor Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/FloorTom.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
             Reduction = 12;
 
@@ -245,6 +249,7 @@
 
             //Hihat
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
             Reduction = 5;
 

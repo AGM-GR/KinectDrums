@@ -196,7 +196,7 @@
     <Resource Include="Images\Icono.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\crash.png" />
+    <Resource Include="Images\Crash.png" />
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

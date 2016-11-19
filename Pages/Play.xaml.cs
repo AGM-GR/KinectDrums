@@ -68,6 +68,7 @@
         private Drum snare;
         private Drum middleTom;
         private Drum floorTom;
+        private Drum crash;
         private Hihat hihat;
         /*****************************************************************************************************************/
 
@@ -164,6 +165,7 @@
 
             //Bass
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Bass.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Bass.wav", UriKind.Relative));
             Reduction = 2.2;
 
@@ -182,6 +184,7 @@
 
             //Snare
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Snare.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
             Reduction = 2;
 
@@ -201,6 +204,7 @@
 
             //Middle Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/MidTom.wav", UriKind.Relative));
             Reduction = 9;
 
@@ -219,6 +223,7 @@
 
             //Floor Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/FloorTom.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/FloorTom.wav", UriKind.Relative));
             Reduction = 12;
 
@@ -235,8 +240,28 @@
                 1
             );
 
+            //Crash
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/Crash.png", UriKind.Absolute));
+            player = new MediaPlayer();
+            player.Open(new Uri("Sounds/CrashCymbal.wav", UriKind.Relative));
+            Reduction = 12;
+
+            crash = new Drum(
+                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction, Image.Height / Reduction),
+                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction, Image.Height / Reduction / 2),
+                player,
+                Image,
+                Reduction,
+                1
+            );
+
             //Hihat
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
+            player = new MediaPlayer();
             player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
             Reduction = 5;
 

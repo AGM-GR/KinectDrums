@@ -118,7 +118,7 @@
                 "crash",
                 "Crash",
                 "",
-                "/Images/MiddleTom.png",
+                "/Images/Crash.png",
                 "",
                 drumPieces));
 
