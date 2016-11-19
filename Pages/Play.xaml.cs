@@ -201,7 +201,7 @@
 
             //Middle Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
-            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            player.Open(new Uri("Sounds/MidTom.wav", UriKind.Relative));
             Reduction = 9;
 
             middleTom = new Drum(
@@ -219,7 +219,7 @@
 
             //Floor Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/FloorTom.png", UriKind.Absolute));
-            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            player.Open(new Uri("Sounds/FloorTom.wav", UriKind.Relative));
             Reduction = 12;
 
             floorTom = new Drum(
