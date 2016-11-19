@@ -269,6 +269,10 @@
             drums.Add(snare);
             hihats.Add(hihat);
 
+            // Añade los botones en el lateral
+            var sampleDataSource = SampleDataSource.GetGroup("DrumPieces");
+            this.itemsControl.ItemsSource = sampleDataSource;
+
             /*****************************************************************************************************************/
         }
 
@@ -472,6 +476,18 @@
                 ht.HitDrum(LeftHand, RightHand, LeftFoot, RightFoot);
             }
 
+        }
+
+        // Maneja que hacer al pulsar un botón: ButtonClick
+        private void ButtonClick(object sender, RoutedEventArgs e) {
+
+            var button = (Button)e.OriginalSource;
+            SampleDataItem sampleDataItem = button.DataContext as SampleDataItem;
+
+            if (sampleDataItem != null && sampleDataItem.NavigationPage != null) {
+
+                navigationRegion.Content = Activator.CreateInstance(sampleDataItem.NavigationPage);
+            }
         }
 
         /*****************************************************************************************************************/

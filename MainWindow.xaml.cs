@@ -24,7 +24,7 @@
             this.kinectRegion.KinectSensor = KinectSensor.GetDefault();
 
             // Añade los botones a la venta principal
-            var sampleDataSource = SampleDataSource.GetGroup("Group-1");
+            var sampleDataSource = SampleDataSource.GetGroup("MenuOptions");
             this.itemsControl.ItemsSource = sampleDataSource;
         }
 

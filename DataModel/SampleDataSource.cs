@@ -18,63 +18,124 @@
 
         private ObservableCollection<SampleDataCollection> allGroups = new ObservableCollection<SampleDataCollection>();
 
+        /********************************************************************************************************************/
         private const string garageImage = "/Images/GarageBackground.jpg";
 
         public SampleDataSource() {
-
-            string itemContent = string.Format(
-                CultureInfo.CurrentCulture,
-                "Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
-                "Contenido Lorem ipsum");
-
-            var group1 = new SampleDataCollection(
-                "Group-1",
-                "Group Title: 1",
-                "Group Subtitle: 1",
+            
+            //Elementos del menú de inicio
+            var menuOptions = new SampleDataCollection(
+                "MenuOptions",
+                "Menu",
+                "Options",
                 garageImage,
-                "Group Description: Menu Group");
-            group1.Items.Add(
+                "Menu Group");
+
+            menuOptions.Items.Add(
                 new SampleDataItem(
-                "Group-1-Item-1",
+                "Menu-PlayNow",
                 "Play Now",
                 "Play a default drum kit",
                 garageImage,
                 "Start playing whith a default drum kit.",
-                itemContent,
-                group1,
+                menuOptions,
                 typeof(Play)));
-            group1.Items.Add(
+            menuOptions.Items.Add(
                 new SampleDataItem(
-                "Group-1-Item-2",
+                "Menu-Customize",
                 "Customize",
                 "Customize your drum kit",
                 garageImage,
                 "Create your own drum kit and play it.",
-                itemContent,
-                group1,
+                menuOptions,
                 typeof(Customize)));
-            group1.Items.Add(
+            menuOptions.Items.Add(
                 new SampleDataItem(
-                "Group-1-Item-3",
+                "Menu-Help",
                 "Help",
                 "Lost? Get some help",
                 garageImage,
                 "Maybe I can lend you a hand.",
-                itemContent,
-                group1,
+                menuOptions,
                 typeof(Help)));
-            group1.Items.Add(
+            menuOptions.Items.Add(
                 new SampleDataItem(
-                "Group-1-Item-4",
+                "Menu-Exit",
                 "Exit",
                 "",
                 garageImage,
                 "Exit Kinect Drums.",
-                itemContent,
-                group1));
+                menuOptions));
             
-            this.AllGroups.Add(group1);
+            this.AllGroups.Add(menuOptions);
+
+            //Elementos del modo customize
+            var drumPieces = new SampleDataCollection(
+                "DrumPieces",
+                "Drum",
+                "Pieces",
+                garageImage,
+                "Drum Pieces");
+
+            drumPieces.Items.Add(
+                new SampleDataItem(
+                "bass",
+                "Bass",
+                "",
+                "/Images/Bass.png",
+                "",
+                drumPieces));
+
+            drumPieces.Items.Add(
+                new SampleDataItem(
+                "snare",
+                "Snare",
+                "",
+                "/Images/Snare.png",
+                "",
+                drumPieces));
+
+            drumPieces.Items.Add(
+                new SampleDataItem(
+                "middleTom",
+                "Middle Tom",
+                "",
+                "/Images/MiddleTom.png",
+                "",
+                drumPieces));
+
+            drumPieces.Items.Add(
+                new SampleDataItem(
+                "floorTom",
+                "Floor Tom",
+                "",
+                "/Images/FloorTom.png",
+                "",
+                drumPieces));
+
+            drumPieces.Items.Add(
+                new SampleDataItem(
+                "crash",
+                "Crash",
+                "",
+                "/Images/MiddleTom.png",
+                "",
+                drumPieces));
+
+            drumPieces.Items.Add(
+                new SampleDataItem(
+                "hihat",
+                "Hihat",
+                "",
+                "/Images/Hihat.png",
+                "",
+                drumPieces));
+
+            this.AllGroups.Add(drumPieces);
+
         }
+
+        /********************************************************************************************************************/
 
         public ObservableCollection<SampleDataCollection> AllGroups {
 
@@ -175,31 +236,22 @@
     // Generic item data model.
     public class SampleDataItem : SampleDataCommon {
 
-        private string content = string.Empty;
         private SampleDataCollection group;
         private Type navigationPage;
 
-        public SampleDataItem(string uniqueId, string title, string subtitle, string image, string description, string content, SampleDataCollection group)
+        public SampleDataItem(string uniqueId, string title, string subtitle, string image, string description, SampleDataCollection group)
             : base(uniqueId, title, subtitle, image, description) {
 
-            this.content = content;
             this.group = group;
             this.navigationPage = null;
         }
 
         // Initializes a new instance of the <see cref="SampleDataItem" /> class.
-        public SampleDataItem(string uniqueId, string title, string subtitle, string image, string description, string content, SampleDataCollection group, Type navigationPage)
+        public SampleDataItem(string uniqueId, string title, string subtitle, string image, string description, SampleDataCollection group, Type navigationPage)
             : base(uniqueId, title, subtitle, image, description) {
 
-            this.content = content;
             this.group = group;
             this.navigationPage = navigationPage;
-        }
-
-        public string Content {
-
-            get { return this.content; }
-            set { this.SetProperty(ref this.content, value); }
         }
 
         public SampleDataCollection Group {
