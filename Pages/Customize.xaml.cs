@@ -67,9 +67,19 @@
         // Variable para indicar si está en modo editar o jugar
         private bool editMode = true;
 
+        // Variable para controlar si se está arrastrando un tambor
+        private bool dragging = false;
+        private JointType dragger;
+        private Drum draggedDrum = null;
+        private int dragDropCount = 5;
+
         //Papelera
         private Rect bin = new Rect();
         private BitmapImage imageBin = new BitmapImage();
+        Color LightGrey = Color.FromArgb(200, 107, 107, 107);
+        Color LightRed = Color.FromArgb(200, 255, 10, 10);
+        private Brush binBrush = new SolidColorBrush();
+        private double binReduction;
 
         //DrumKit variables
         private Drum bass;
@@ -296,7 +306,9 @@
 
             //Crea el botón de eliminar
             imageBin = new BitmapImage(new Uri("pack://application:,,,/Images/Bin.png", UriKind.Absolute));
-            bin = new Rect(10, 10, imageBin.Width, imageBin.Height);
+            binBrush = new SolidColorBrush(LightGrey);
+            binReduction = 6;
+            bin = new Rect(10, 10, imageBin.Width / binReduction, imageBin.Height / binReduction);
 
             // Añade los botones en el lateral
             var sampleDataSource = SampleDataSource.GetGroup("DrumPieces");
@@ -318,15 +330,6 @@
             if (this.bodyFrameReader != null) {
 
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
-
-                /*******************************************************/
-                using (DrawingContext dc = this.drawingGroup.Open()) {
-
-                    // Dibuja la batería
-                    dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
-                    this.DrawDrums(dc);
-                }
-                /*******************************************************/
             }
         }
 
@@ -370,10 +373,13 @@
                     /*******************************************************/
                     // Dibuja la batería
                     this.DrawDrums(dc);
+
+                    //Si está en modo editar dibuja la papelera
+                    if (editMode) this.DrawBin(dc);
                     /*******************************************************/
 
-                    // Draw a transparent background to set the render size
-                    dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
+                        // Draw a transparent background to set the render size
+                        dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
 
                     int penIndex = 0;
                     foreach (Body body in this.bodies) {
@@ -409,16 +415,46 @@
                             this.DrawCircle(body.HandRightState, jointPoints[JointType.FootRight], dc);
 
                             /*************************************************************************************************************/
-                            //Si está en modo editar, deja mover los Drum y muestra la papelera
+                            Dictionary<JointType, HandState> handsState = new Dictionary<JointType, HandState>();
+                            handsState[JointType.HandTipLeft] = body.HandLeftState;
+                            handsState[JointType.HandTipRight] = body.HandRightState;
+
+                            //Si está en modo editar, deja mover los Drum
                             if (editMode) {
 
-                                this.OnDrumDrag(body.HandLeftState, jointPoints[JointType.HandTipLeft]);
-                                this.OnDrumDrag(body.HandRightState, jointPoints[JointType.HandTipRight]);
-                                this.DrawBin(dc);
+                                // Si no se esta arrastrando ninguno, comprueba si se ha seleccionado alguno.
+                                // Si seleccionamos alguno pasamos al modo arrastando hasta que lo soltemos.
+                                if (!dragging) {
+
+                                    draggedDrum = this.OnDrumSelect(body.HandLeftState, jointPoints[JointType.HandTipLeft]);
+                                    if (draggedDrum != null) {
+                                        dragging = true;
+                                        dragger = JointType.HandTipLeft;
+                                    }
+                                    else {
+
+                                        draggedDrum = this.OnDrumSelect(body.HandRightState, jointPoints[JointType.HandTipRight]);
+                                        if (draggedDrum != null) {
+                                            dragging = true;
+                                            dragger = JointType.HandTipRight;
+                                        }
+                                    }
+
+                                } else if (!this.OnDrumDrop(draggedDrum, handsState[dragger], jointPoints[dragger])) {
+
+                                    this.OnDrumDrag(draggedDrum, jointPoints[dragger]);
+
+                                } else {
+
+                                    dragging = false;
+                                    draggedDrum = null;
+                                }
                             }
-                            else
-                                //Comprueba si ha tocado un tambor
+                            //Si no está en modo editar, podemos tocar los Drum
+                            else { 
+                                //Comprueba si ha tocado un Drum
                                 this.OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
+                            }
 
                             /*************************************************************************************************************/
 
@@ -496,7 +532,17 @@
         //Dibuja la Papelera
         private void DrawBin(DrawingContext drawingContext) {
 
+            drawingContext.DrawRectangle(this.binBrush, null, bin);
             drawingContext.DrawImage(imageBin, bin);
+        }
+
+        //Elimina un Drum de la batería
+        private void OnDeleteDrum(Drum deleteDrum) {
+
+            if (drums.Contains(deleteDrum))
+                drums.Remove(deleteDrum);
+            else if (hihats.Contains(deleteDrum))
+                hihats.Remove(deleteDrum);
         }
 
         //Dibuja la batería
@@ -533,28 +579,64 @@
 
         }
 
-        // Manjea cuando arrastras un Drum con la mano cerrada
-        private bool OnDrumDrag(HandState handState, Point handPosition) {
+        //Comprueba si se ha seleccionado algun Drum
+        private Drum OnDrumSelect(HandState handState, Point handPosition) {
 
-            if (handState == HandState.Closed) { 
+            if (handState == HandState.Closed) {
 
                 foreach (Drum dr in drums)
 
                     if (dr.Position.Contains(handPosition)) {
 
                         dr.MoveTo(handPosition);
-                        return true;
+                        return dr;
                     }
 
 
                 foreach (Hihat ht in hihats)
 
-                    if (ht.HitArea.Contains(handPosition)) {
+                    if (ht.Position.Contains(handPosition)) {
 
                         ht.MoveTo(handPosition);
-                        return true;
+                        return ht;
                     }
             }
+
+            return null;
+        }
+
+        // Manjea cuando arrastras un Drum con la mano cerrada
+        private void OnDrumDrag(Drum dr, Point handPosition) {
+
+            dr.MoveTo(handPosition);
+
+            if (bin.Contains(handPosition))
+                binBrush = new SolidColorBrush(LightRed);
+            else
+                binBrush = new SolidColorBrush(LightGrey);
+        }
+
+        // Manjea cuando sueltas un Drum que se estaba arrastrando
+        private bool OnDrumDrop(Drum dr,  HandState handState, Point handPosition) {
+
+            if (handState == HandState.Open) {
+                dragDropCount--;
+
+                if (dragDropCount <= 0) {
+
+                    dr.MoveTo(handPosition);
+
+                    //Si está sobre la papelera lo elimina
+                    if (bin.Contains(handPosition)) {
+                        this.OnDeleteDrum(dr);
+                        binBrush = new SolidColorBrush(LightGrey);
+                    }
+
+                    return true;
+                }
+            }
+
+            else dragDropCount = 5;
 
             return false;
         }
@@ -593,9 +675,6 @@
                         hihats.Add(new Hihat(hihat));
                     break;
                 }
-
-                // Redibuja la batería
-                using (DrawingContext dc = this.drawingGroup.Open()) { this.DrawDrums(dc); }
             }
         }
 

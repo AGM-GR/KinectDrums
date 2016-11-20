@@ -76,6 +76,7 @@
             }
         }
 
+        //Lo translada hacia el punto indicando (El punto será el centro de la imagen)
         public void MoveTo(Point point) {
 
             double distanciaX = hitArea.Location.X - position.Location.X;
@@ -181,6 +182,18 @@
 
                 crashHit = false;
             }
+        }
+
+        //Lo translada hacia el punto indicando (El punto será el centro de la imagen)
+        new public void MoveTo(Point point) {
+
+            base.MoveTo(point);
+
+            double distanciaX = hitCrash.Location.X - base.Position.Location.X;
+            double distanciaY = hitCrash.Location.Y - base.Position.Location.Y;
+
+            hitCrash.Location = new Point(base.Position.Location.X + distanciaX, base.Position.Location.Y + distanciaY);
+
         }
 
         //Modificadores y Consultores//
