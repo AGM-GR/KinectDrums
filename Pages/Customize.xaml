@@ -6,7 +6,7 @@
         xmlns:k="http://schemas.microsoft.com/kinect/2014"
         mc:Ignorable="d"
         d:DesignHeight="600" d:DesignWidth="800"
-        Loaded="Personalize_Loaded"
+        Loaded="Customize_Loaded"
     >
 
     <Grid>

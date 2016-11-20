@@ -193,10 +193,10 @@
 
             bass = new Drum(
                 new Rect((this.displayWidth - (Image.Width / Reduction)) / 2,
-                          this.displayHeight - (Image.Height / Reduction),
+                          this.displayHeight - (Image.Height / Reduction) - 10,
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth - (Image.Width / Reduction / 5)) / 2,
-                          this.displayHeight - (Image.Height / Reduction / 10),
+                          this.displayHeight - (Image.Height / Reduction / 10) - 10,
                           Image.Width / Reduction / 5, Image.Height / Reduction / 10),
                 player,
                 Image,
@@ -212,10 +212,10 @@
 
             snare = new Drum(
                 new Rect((this.displayWidth / 2) + (Image.Width / 8),
-                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)) - 10,
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) + (Image.Width / 8),
-                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)) - 10,
                           Image.Width / Reduction, Image.Height / Reduction / 2),
                 player,
                 Image,
@@ -232,10 +232,10 @@
 
             middleTom = new Drum(
                 new Rect((this.displayWidth / 2) - (bass.Width / 2),
-                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)) - 10,
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) + 11,
-                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
+                          this.displayHeight - ((bass.Height) + (Image.Height / Reduction)) - 10,
                           (Image.Width / Reduction) - 11, Image.Height / Reduction / 4),
                 player,
                 Image,
@@ -251,10 +251,10 @@
 
             floorTom = new Drum(
                 new Rect((this.displayWidth / 2) + (bass.Width / 2),
-                          this.displayHeight - (Image.Height / Reduction),
+                          this.displayHeight - (Image.Height / Reduction) - 10,
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) + (bass.Width / 2) + 11,
-                          this.displayHeight - (Image.Height / Reduction),
+                          this.displayHeight - (Image.Height / Reduction) - 10,
                           (Image.Width / Reduction) - 20, Image.Height / Reduction / 6),
                 player,
                 Image,
@@ -270,10 +270,10 @@
 
             crash = new Drum(
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / 1.7),
-                          this.displayHeight - (Image.Height / Reduction),
+                          this.displayHeight - (Image.Height / Reduction) - 10,
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / 1.7) + 2,
-                          this.displayHeight - (Image.Height / Reduction),
+                          this.displayHeight - (Image.Height / Reduction) - 10,
                           Image.Width / Reduction - 13, Image.Height / Reduction / 7.5),
                 player,
                 Image,
@@ -288,18 +288,18 @@
             MediaPlayer playerAux = new MediaPlayer();
             playerAux.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
             MediaPlayer playerPedal = new MediaPlayer();
-            playerPedal.Open(new Uri("Sounds/ClosingdHihat.wav", UriKind.Relative));
+            playerPedal.Open(new Uri("Sounds/ClosingHihat.wav", UriKind.Relative));
             Reduction = 5;
 
             hihat = new Hihat(
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction),
-                          this.displayHeight - (Image.Height / Reduction),
+                          this.displayHeight - (Image.Height / Reduction) - 10,
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction) + 8,
-                          this.displayHeight - (Image.Height / Reduction) + 16,
+                          this.displayHeight - (Image.Height / Reduction) + 16 - 10,
                           Image.Width / Reduction - 16, Image.Height / Reduction / 6),
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction / 2) - (Image.Width / Reduction / 4 / 2),
-                          this.displayHeight - (Image.Height / Reduction / 12),
+                          this.displayHeight - (Image.Height / Reduction / 12) - 10,
                           Image.Width / Reduction / 4, Image.Height / Reduction / 12),
                 player,
                 playerAux,
@@ -329,7 +329,7 @@
         }
 
         // Inicia el Programa, iniciando la llegada de frames
-        private void Personalize_Loaded(object sender, RoutedEventArgs e) {
+        private void Customize_Loaded(object sender, RoutedEventArgs e) {
 
             if (this.bodyFrameReader != null) {
 
@@ -338,7 +338,7 @@
         }
 
         // Funcion para cerrar correctamente el programa
-        public void Personalize_Closing() {
+        public void Customize_Closing() {
 
             if (this.bodyFrameReader != null) {
 
@@ -346,6 +346,9 @@
                 this.bodyFrameReader.Dispose();
                 this.bodyFrameReader = null;
             }
+
+            drums.Clear();
+            hihats.Clear();
         }
 
         // Handles the body frame data arriving from the sensor

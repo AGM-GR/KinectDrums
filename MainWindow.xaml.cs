@@ -54,7 +54,12 @@
                 Play playContent = navigationRegion.Content as Play;
                 playContent.Play_Closing();
                 navigationRegion.Content = this.kinectRegionGrid;
-            } else
+            } else if (navigationRegion.Content.GetType() == typeof(Customize)) {
+                Customize customizeContent = navigationRegion.Content as Customize;
+                customizeContent.Customize_Closing();
+                navigationRegion.Content = this.kinectRegionGrid;
+            }
+            else
                 navigationRegion.Content = this.kinectRegionGrid;
         }
 
