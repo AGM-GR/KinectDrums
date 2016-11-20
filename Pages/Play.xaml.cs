@@ -244,10 +244,10 @@
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Crash.png", UriKind.Absolute));
             player = new MediaPlayer();
             player.Open(new Uri("Sounds/CrashCymbal.wav", UriKind.Relative));
-            Reduction = 12;
+            Reduction = 2;
 
             crash = new Drum(
-                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2),
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) + (bass.Width / 2),
@@ -463,6 +463,10 @@
             floorTom.Draw(drawingContext);
             floorTom.DrawHit(drawingContext, this.handBrush);
 
+            //Crash
+            crash.Draw(drawingContext);
+            crash.DrawHit(drawingContext, this.handBrush);
+
             //HiHat
             hihat.Draw(drawingContext);
             hihat.DrawHit(drawingContext, this.handBrush);
@@ -483,10 +487,10 @@
         // Maneja cuando golpeas un tambor
         private void OnDrumHit(Point LeftHand, Point RightHand, Point LeftFoot, Point RightFoot) {
 
-            // Bass Hit
+            // Bass
             bass.HitDrum(LeftFoot, RightFoot);
 
-            // Snare Hit
+            // Snare
             snare.HitDrum(LeftHand, RightHand);
 
             //Middle Tom
@@ -494,6 +498,9 @@
 
             //Floor Tom
             floorTom.HitDrum(LeftHand, RightHand);
+
+            //Crash
+            crash.HitDrum(LeftHand, RightHand);
 
             // Hihat Hit
             hihat.HitDrum(LeftHand, RightHand, LeftFoot, RightFoot);
