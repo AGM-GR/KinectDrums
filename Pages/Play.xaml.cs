@@ -263,6 +263,10 @@
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/Hihat.png", UriKind.Absolute));
             player = new MediaPlayer();
             player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
+            MediaPlayer playerAux = new MediaPlayer();
+            playerAux.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
+            MediaPlayer playerPedal = new MediaPlayer();
+            playerPedal.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
             Reduction = 5;
 
             hihat = new Hihat(
@@ -276,8 +280,8 @@
                           this.displayHeight - (Image.Height / Reduction / 12),
                           Image.Width / Reduction / 4, Image.Height / Reduction / 12),
                 player,
-                player,
-                player,
+                playerAux,
+                playerPedal,
                 Image,
                 Reduction
             );

@@ -198,11 +198,18 @@
     </Resource>
     <Resource Include="Images\Crash.png" />
     <Resource Include="Images\Bin.png" />
+    <Resource Include="Images\HighTom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Sounds\Bass.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\ClosedHihat.wav" />
-    <Content Include="Sounds\CrashCymbal.wav" />
+    <Content Include="Sounds\ClosedHihat.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\CrashCymbal.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\FloorTom.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
