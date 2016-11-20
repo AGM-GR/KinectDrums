@@ -227,7 +227,7 @@
             //Middle Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
             player = new MediaPlayer();
-            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            player.Open(new Uri("Sounds/MidTom.wav", UriKind.Relative));
             Reduction = 8.5;
 
             middleTom = new Drum(
@@ -246,7 +246,7 @@
             //Floor Tom
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/FloorTom.png", UriKind.Absolute));
             player = new MediaPlayer();
-            player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
+            player.Open(new Uri("Sounds/FloorTom.wav", UriKind.Relative));
             Reduction = 12;
 
             floorTom = new Drum(
@@ -288,7 +288,7 @@
             MediaPlayer playerAux = new MediaPlayer();
             playerAux.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
             MediaPlayer playerPedal = new MediaPlayer();
-            playerPedal.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
+            playerPedal.Open(new Uri("Sounds/ClosingdHihat.wav", UriKind.Relative));
             Reduction = 5;
 
             hihat = new Hihat(
@@ -612,7 +612,10 @@
         // Manjea cuando arrastras un Drum con la mano cerrada
         private void OnDrumDrag(Drum dr, Point handPosition) {
 
-            dr.MoveTo(handPosition);
+            if (dr.HandHit == 2)
+                ((Hihat)dr).MoveTo(handPosition);
+            else
+                dr.MoveTo(handPosition);
 
             if (bin.Contains(handPosition))
                 binBrush = new SolidColorBrush(LightRed);
@@ -628,7 +631,10 @@
 
                 if (dragDropCount <= 0) {
 
-                    dr.MoveTo(handPosition);
+                    if (dr.HandHit == 2)
+                        ((Hihat)dr).MoveTo(handPosition);
+                    else
+                        dr.MoveTo(handPosition);
 
                     //Si está sobre la papelera lo elimina
                     if (bin.Contains(handPosition)) {

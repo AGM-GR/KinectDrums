@@ -266,7 +266,7 @@
             MediaPlayer playerAux = new MediaPlayer();
             playerAux.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
             MediaPlayer playerPedal = new MediaPlayer();
-            playerPedal.Open(new Uri("Sounds/ClosedHihat.wav", UriKind.Relative));
+            playerPedal.Open(new Uri("Sounds/ClosingdHihat.wav", UriKind.Relative));
             Reduction = 5;
 
             hihat = new Hihat(

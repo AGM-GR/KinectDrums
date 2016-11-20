@@ -207,6 +207,9 @@
     <Content Include="Sounds\ClosedHihat.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\ClosingHihat.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\CrashCymbal.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

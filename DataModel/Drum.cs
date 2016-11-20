@@ -136,7 +136,7 @@
 
         //Constructor, establece la clase padre como el pedal y añade el plato y los sonidos del plato
         public Hihat(Rect position, Rect hitCrash, Rect hitPedal, MediaPlayer soundOpen, MediaPlayer soundClosed, MediaPlayer soundPedal, BitmapImage image, double imageReduction) 
-            : base(position,hitPedal,soundPedal,image,imageReduction,0) {
+            : base(position,hitPedal,soundPedal,image,imageReduction,2) {
 
             this.hitCrash = hitCrash;
             this.soundClosed = soundClosed;
@@ -187,13 +187,12 @@
         //Lo translada hacia el punto indicando (El punto será el centro de la imagen)
         new public void MoveTo(Point point) {
 
-            base.MoveTo(point);
-
             double distanciaX = hitCrash.Location.X - base.Position.Location.X;
             double distanciaY = hitCrash.Location.Y - base.Position.Location.Y;
 
-            hitCrash.Location = new Point(base.Position.Location.X + distanciaX, base.Position.Location.Y + distanciaY);
+            base.MoveTo(point);
 
+            hitCrash.Location = new Point(base.Position.Location.X + distanciaX, base.Position.Location.Y + distanciaY);
         }
 
         //Modificadores y Consultores//
@@ -207,10 +206,6 @@
 
         public MediaPlayer SoundOpen {
             get { return soundOpen; }
-        }
-
-        new public int HandHit {
-            get { return 2; }
         }
     }
 }
