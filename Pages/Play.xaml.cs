@@ -70,6 +70,9 @@
         private Drum floorTom;
         private Drum crash;
         private Hihat hihat;
+
+        // Brush para pintar los HitArea
+        private readonly Brush hitBrush = new SolidColorBrush(Color.FromArgb(100, 200, 200, 200));
         /*****************************************************************************************************************/
 
 
@@ -474,27 +477,27 @@
 
             //Floor Tom
             floorTom.Draw(drawingContext);
-            floorTom.DrawHit(drawingContext, this.handBrush);
+            floorTom.DrawHit(drawingContext, this.hitBrush);
 
             //Crash
             crash.Draw(drawingContext);
-            crash.DrawHit(drawingContext, this.handBrush);
+            crash.DrawHit(drawingContext, this.hitBrush);
 
             //HiHat
             hihat.Draw(drawingContext);
-            hihat.DrawHit(drawingContext, this.handBrush);
+            hihat.DrawHit(drawingContext, this.hitBrush);
 
             //Bass
             bass.Draw(drawingContext);
-            bass.DrawHit(drawingContext, this.handBrush);
+            bass.DrawHit(drawingContext, this.hitBrush);
 
             //Snare
             snare.Draw(drawingContext);
-            snare.DrawHit(drawingContext, this.handBrush);
+            snare.DrawHit(drawingContext, this.hitBrush);
 
             //Middle Tom
             middleTom.Draw(drawingContext);
-            middleTom.DrawHit(drawingContext, this.handBrush);
+            middleTom.DrawHit(drawingContext, this.hitBrush);
         }
 
         // Maneja cuando golpeas un tambor

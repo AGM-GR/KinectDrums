@@ -92,6 +92,9 @@
         //Vector de Drums 
         private ArrayList drums = new ArrayList();
         private ArrayList hihats = new ArrayList();
+
+        // Brush para pintar los HitArea
+        private readonly Brush hitBrush = new SolidColorBrush(Color.FromArgb(100, 200, 200, 200));
         /*****************************************************************************************************************/
 
 
@@ -558,13 +561,13 @@
             foreach (Drum dr in drums) { 
 
                 dr.Draw(drawingContext);
-                dr.DrawHit(drawingContext, this.handBrush);
+                dr.DrawHit(drawingContext, this.hitBrush);
             }
 
             foreach (Hihat ht in hihats) {
 
                 ht.Draw(drawingContext);
-                ht.DrawHit(drawingContext, this.handBrush);
+                ht.DrawHit(drawingContext, this.hitBrush);
             }
         }
 
