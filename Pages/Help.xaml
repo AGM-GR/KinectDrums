@@ -13,10 +13,30 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Grid Grid.Row="1">
             <Image Source="/Images/GarageBackgroundBlur.jpg" Stretch="UniformToFill" />
+            <Grid Width="Auto" Height="Auto">
+                <Border Background="#C0020203">
+                </Border>
+                <TextBlock FontSize="22pt" FontWeight="Bold" Foreground="SteelBlue" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    Let me give you a few tips on using Kinect Drums...
+                </TextBlock>
+                <TextBlock><LineBreak/></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="20pt" FontWeight="ExtraBold" Foreground="SteelBlue" HorizontalAlignment="Center">
+                    <LineBreak/>
+                    To select an option, move your hand until the cursor is over it. Then, a little push will do.
+                    <LineBreak/>
+                    There are two game modes in Kinect Drums.
+                    <LineBreak/>
+                    The "Play" mode allows you to play drums now with a default drum kit.
+                    <LineBreak/>
+                    The "Customize" mode lets you configure your drumkit before playing.
+                    <LineBreak/>
+                    In either of them, hit the zone of a drum element to play it.
+                    <LineBreak/>
+                    And now, grab your air drumsticks and get started!
+                </TextBlock>
+            </Grid>
         </Grid>
-
     </Grid>
 </UserControl>
