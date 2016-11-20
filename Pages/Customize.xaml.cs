@@ -67,11 +67,16 @@
         // Variable para indicar si está en modo editar o jugar
         private bool editMode = true;
 
+        //Papelera
+        private Rect bin = new Rect();
+        private BitmapImage imageBin = new BitmapImage();
+
         //DrumKit variables
         private Drum bass;
         private Drum snare;
         private Drum middleTom;
         private Drum floorTom;
+        private Drum crash;
         private Hihat hihat;
 
         //Vector de Drums 
@@ -213,15 +218,15 @@
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
             player = new MediaPlayer();
             player.Open(new Uri("Sounds/Snare.wav", UriKind.Relative));
-            Reduction = 9;
+            Reduction = 8.5;
 
             middleTom = new Drum(
                 new Rect((this.displayWidth / 2) - (bass.Width / 2),
                           this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 2) - (bass.Width / 2),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) + 11,
                           this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
-                          Image.Width / Reduction, Image.Height / Reduction / 2),
+                          (Image.Width / Reduction) - 11, Image.Height / Reduction / 4),
                 player,
                 Image,
                 Reduction,
@@ -238,9 +243,28 @@
                 new Rect((this.displayWidth / 2) + (bass.Width / 2),
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                new Rect((this.displayWidth / 2) + (bass.Width / 2) + 11,
                           this.displayHeight - (Image.Height / Reduction),
-                          Image.Width / Reduction, Image.Height / Reduction / 2),
+                          (Image.Width / Reduction) - 20, Image.Height / Reduction / 6),
+                player,
+                Image,
+                Reduction,
+                1
+            );
+
+            //Crash
+            Image = new BitmapImage(new Uri("pack://application:,,,/Images/Crash.png", UriKind.Absolute));
+            player = new MediaPlayer();
+            player.Open(new Uri("Sounds/CrashCymbal.wav", UriKind.Relative));
+            Reduction = 2;
+
+            crash = new Drum(
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / 1.7),
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction, Image.Height / Reduction),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / 1.7) + 2,
+                          this.displayHeight - (Image.Height / Reduction),
+                          Image.Width / Reduction - 13, Image.Height / Reduction / 7.5),
                 player,
                 Image,
                 Reduction,
@@ -258,17 +282,21 @@
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction) + 8,
-                          this.displayHeight - (Image.Height / Reduction) + (Image.Height / Reduction / 11),
-                          Image.Width / Reduction - 16, Image.Height / Reduction / 7),
-                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction / 2),
-                          this.displayHeight - (Image.Height / Reduction / 5),
-                          Image.Width / Reduction / 5, Image.Height / Reduction / 5),
+                          this.displayHeight - (Image.Height / Reduction) + 16,
+                          Image.Width / Reduction - 16, Image.Height / Reduction / 6),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction / 2) - (Image.Width / Reduction / 4 / 2),
+                          this.displayHeight - (Image.Height / Reduction / 12),
+                          Image.Width / Reduction / 4, Image.Height / Reduction / 12),
                 player,
                 player,
                 player,
                 Image,
                 Reduction
             );
+
+            //Crea el botón de eliminar
+            imageBin = new BitmapImage(new Uri("pack://application:,,,/Images/Bin.png", UriKind.Absolute));
+            bin = new Rect(10, 10, imageBin.Width, imageBin.Height);
 
             // Añade los botones en el lateral
             var sampleDataSource = SampleDataSource.GetGroup("DrumPieces");
@@ -290,6 +318,15 @@
             if (this.bodyFrameReader != null) {
 
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
+
+                /*******************************************************/
+                using (DrawingContext dc = this.drawingGroup.Open()) {
+
+                    // Dibuja la batería
+                    dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
+                    this.DrawDrums(dc);
+                }
+                /*******************************************************/
             }
         }
 
@@ -372,15 +409,16 @@
                             this.DrawCircle(body.HandRightState, jointPoints[JointType.FootRight], dc);
 
                             /*************************************************************************************************************/
-                            //Si está en modo editar, deja mover los Drum
+                            //Si está en modo editar, deja mover los Drum y muestra la papelera
                             if (editMode) {
 
-                                OnDrumDrag(body.HandLeftState, jointPoints[JointType.HandTipLeft]);
-                                OnDrumDrag(body.HandRightState, jointPoints[JointType.HandTipRight]);
+                                this.OnDrumDrag(body.HandLeftState, jointPoints[JointType.HandTipLeft]);
+                                this.OnDrumDrag(body.HandRightState, jointPoints[JointType.HandTipRight]);
+                                this.DrawBin(dc);
                             }
                             else
                                 //Comprueba si ha tocado un tambor
-                                OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
+                                this.OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
 
                             /*************************************************************************************************************/
 
@@ -453,6 +491,12 @@
         private void DrawCircle(HandState handState, Point handPosition, DrawingContext drawingContext) {
 
             drawingContext.DrawEllipse(this.handBrush, null, handPosition, HandSize, HandSize);
+        }
+
+        //Dibuja la Papelera
+        private void DrawBin(DrawingContext drawingContext) {
+
+            drawingContext.DrawImage(imageBin, bin);
         }
 
         //Dibuja la batería
@@ -542,14 +586,16 @@
                     break;
 
                     case "crash":
-                        //drums.Add(new Drum(crash));
+                        drums.Add(new Drum(crash));
                     break;
 
                     case "hihat":
                         hihats.Add(new Hihat(hihat));
                     break;
-
                 }
+
+                // Redibuja la batería
+                using (DrawingContext dc = this.drawingGroup.Open()) { this.DrawDrums(dc); }
             }
         }
 

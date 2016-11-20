@@ -28,7 +28,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Margin="75,20,75,30" Style="{StaticResource KinectTileButton}" Button.Click="PlayButtonClick">
+            <Button Grid.Row="0" Margin="60,20,50,30" Style="{StaticResource KinectTileButton}" Button.Click="PlayButtonClick">
                 <Border Background="Black" VerticalAlignment="Center">
                     <TextBlock Name="PlayButtonText" Text="PLAY" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="50"/>
                 </Border>

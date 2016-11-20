@@ -206,15 +206,15 @@
             Image = new BitmapImage(new Uri("pack://application:,,,/Images/MiddleTom.png", UriKind.Absolute));
             player = new MediaPlayer();
             player.Open(new Uri("Sounds/MidTom.wav", UriKind.Relative));
-            Reduction = 9;
+            Reduction = 8.5;
 
             middleTom = new Drum(
                 new Rect((this.displayWidth / 2) - (bass.Width / 2),
                           this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 2) - (bass.Width / 2),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) + 11,
                           this.displayHeight - ((bass.Height) + (Image.Height / Reduction)),
-                          Image.Width / Reduction, Image.Height / Reduction / 2),
+                          (Image.Width / Reduction) - 11, Image.Height / Reduction / 4),
                 player,
                 Image,
                 Reduction,
@@ -231,9 +231,9 @@
                 new Rect((this.displayWidth / 2) + (bass.Width / 2),
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 2) + (bass.Width / 2),
+                new Rect((this.displayWidth / 2) + (bass.Width / 2) + 11,
                           this.displayHeight - (Image.Height / Reduction),
-                          Image.Width / Reduction, Image.Height / Reduction / 6),
+                          (Image.Width / Reduction) - 20, Image.Height / Reduction / 6),
                 player,
                 Image,
                 Reduction,
@@ -247,10 +247,10 @@
             Reduction = 2;
 
             crash = new Drum(
-                new Rect((this.displayWidth / 2) - (bass.Width / 2),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / 1.7),
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
-                new Rect((this.displayWidth / 2) - (bass.Width / 2) + 2,
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / 1.7) + 2,
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction - 13, Image.Height / Reduction / 7.5),
                 player,
@@ -270,11 +270,11 @@
                           this.displayHeight - (Image.Height / Reduction),
                           Image.Width / Reduction, Image.Height / Reduction),
                 new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction) + 8,
-                          this.displayHeight - (Image.Height / Reduction) + (Image.Height / Reduction / 11),
-                          Image.Width / Reduction - 16, Image.Height / Reduction /7),
-                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction / 2),
-                          this.displayHeight - (Image.Height / Reduction / 5),
-                          Image.Width / Reduction / 5, Image.Height / Reduction / 5),
+                          this.displayHeight - (Image.Height / Reduction) + 16,
+                          Image.Width / Reduction - 16, Image.Height / Reduction /6),
+                new Rect((this.displayWidth / 2) - (bass.Width / 2) - (Image.Width / Reduction / 2) - (Image.Width / Reduction / 4 / 2),
+                          this.displayHeight - (Image.Height / Reduction / 12),
+                          Image.Width / Reduction / 4, Image.Height / Reduction / 12),
                 player,
                 player,
                 player,
@@ -297,6 +297,15 @@
             if (this.bodyFrameReader != null) {
 
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
+
+                /*******************************************************/
+                using (DrawingContext dc = this.drawingGroup.Open()) {
+
+                    // Dibuja la batería
+                    dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
+                    this.DrawDrums(dc);
+                }
+                /*******************************************************/
             }
         }
 
