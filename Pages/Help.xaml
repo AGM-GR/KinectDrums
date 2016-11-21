@@ -4,39 +4,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         mc:Ignorable="d"
-        d:DesignHeight="300" d:DesignWidth="400"
+        d:DesignHeight="800" d:DesignWidth="1200"
         
     >
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <Image Source="/Images/GarageBackgroundBlur.jpg" Stretch="UniformToFill" />
-            <Grid Width="Auto" Height="Auto">
-                <Border Background="#C0020203">
-                </Border>
-                <TextBlock FontSize="22pt" FontWeight="Bold" Foreground="SteelBlue" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <Image Source="/Images/GarageBackgroundBlur.jpg" Stretch="UniformToFill" />
+        <Grid Width="Auto" Height="Auto">
+            <Border Background="#D0020203">
+            </Border>
+            <TextBlock FontSize="22pt" FontWeight="Bold" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center">
                     Let me give you a few tips on using Kinect Drums...
-                </TextBlock>
-                <TextBlock><LineBreak/></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="20pt" FontWeight="ExtraBold" Foreground="SteelBlue" HorizontalAlignment="Center">
+            </TextBlock>
+            <TextBlock><LineBreak/></TextBlock>
+            <TextBlock Width="1000" TextWrapping="Wrap" TextAlignment="Justify" FontSize="18pt" FontWeight="ExtraBold" Foreground="White" HorizontalAlignment="Center">
                     <LineBreak/>
                     To select an option, move your hand until the cursor is over it. Then, a little push will do.
                     <LineBreak/>
-                    There are two game modes in Kinect Drums.
+                    <LineBreak/>
+                    There are two game modes in Kinect Drums: "Play" mode and "Customize" mode.
+                    <LineBreak/>
                     <LineBreak/>
                     The "Play" mode allows you to play drums now with a default drum kit.
                     <LineBreak/>
-                    The "Customize" mode lets you configure your drumkit before playing.
+                    <LineBreak/>
+                    The "Customize" mode lets you configure your drum kit before playing. Add an instrument by selecting it. After that, you can move it by closing your hand while the icon is over it and dragging it wherever you want.
+                    <LineBreak/>
+                    To remove an instrument, drag it to the wastebin icon.
+                    <LineBreak/>
+                    To start playing, push the "Play" button at the top right corner.
+                    <LineBreak/>
                     <LineBreak/>
                     In either of them, hit the zone of a drum element to play it.
                     <LineBreak/>
                     And now, grab your air drumsticks and get started!
-                </TextBlock>
-            </Grid>
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

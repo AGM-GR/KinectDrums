@@ -95,7 +95,8 @@
         private ArrayList hihats = new ArrayList();
 
         // Brush para pintar los HitArea
-        private readonly Brush hitBrush = new SolidColorBrush(Color.FromArgb(100, 200, 200, 200));
+        private readonly Brush hitBrush = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        private readonly Brush footHitBrush = new SolidColorBrush(Color.FromArgb(100, 200, 200, 200));
 
         //Lista de GestureDetector, uno para cada body detectado
         private List<GestureDetector> gestureDetectorList = null;
@@ -331,7 +332,7 @@
             //Inicializa el vector de GestureDetector
             this.gestureDetectorList = new List<GestureDetector>();
             player = new MediaPlayer();
-            player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
+            player.Open(new Uri("Sounds/Drumsticks.wav", UriKind.Relative));
 
             for (int i = 0; i < maxBodies; ++i) {
 
@@ -619,7 +620,7 @@
             foreach (Hihat ht in hihats) {
 
                 ht.Draw(drawingContext);
-                ht.DrawHit(drawingContext, this.hitBrush);
+                ht.DrawHit(drawingContext, this.hitBrush, this.footHitBrush);
             }
         }
 

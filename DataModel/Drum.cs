@@ -76,7 +76,7 @@
             }
         }
 
-        //Lo translada hacia el punto indicando (El punto será el centro de la imagen)
+        //Lo traslada hacia el punto indicando (El punto será el centro de la imagen)
         public void MoveTo(Point point) {
 
             double distanciaX = hitArea.Location.X - position.Location.X;
@@ -152,9 +152,9 @@
         }
 
         //Dibuja el hitArea de un color determinado.
-        new public void DrawHit(DrawingContext drawingContext, Brush color) {
+        new public void DrawHit(DrawingContext drawingContext, Brush color, Brush colorpedal) {
 
-            base.DrawHit(drawingContext, color);
+            base.DrawHit(drawingContext, colorpedal);
             drawingContext.DrawRectangle(color, null, hitCrash);
         }
 
@@ -184,7 +184,7 @@
             }
         }
 
-        //Lo translada hacia el punto indicando (El punto será el centro de la imagen)
+        //Lo traslada hacia el punto indicando (El punto será el centro de la imagen)
         new public void MoveTo(Point point) {
 
             double distanciaX = hitCrash.Location.X - base.Position.Location.X;

@@ -20,6 +20,8 @@
 
         /********************************************************************************************************************/
         private const string garageImage = "/Images/GarageBackground.jpg";
+        private const string exitImage = "/Images/Exit.png";
+        private const string helpImage = "/Images/Help.png";
 
         public SampleDataSource() {
             
@@ -54,7 +56,7 @@
                 "Menu-Help",
                 "Help",
                 "Lost? Get some help",
-                garageImage,
+                helpImage,
                 "Maybe I can lend you a hand.",
                 menuOptions,
                 typeof(Help)));
@@ -63,7 +65,7 @@
                 "Menu-Exit",
                 "Exit",
                 "",
-                garageImage,
+                exitImage,
                 "Exit Kinect Drums.",
                 menuOptions));
             
