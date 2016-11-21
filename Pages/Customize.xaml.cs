@@ -8,6 +8,7 @@
     using Microsoft.Kinect;
     using System.Windows.Media.Imaging;
     using NPI.KinectDrums.DataModel;
+    using NPI.KinectDrums.Gestures;
     using System.Collections;
 
     public partial class Customize : UserControl {
@@ -95,6 +96,12 @@
 
         // Brush para pintar los HitArea
         private readonly Brush hitBrush = new SolidColorBrush(Color.FromArgb(100, 200, 200, 200));
+
+        //Lista de GestureDetector, uno para cada body detectado
+        private List<GestureDetector> gestureDetectorList = null;
+
+        //Número máximo de personas detectadas
+        private const int maxBodies = 1;
         /*****************************************************************************************************************/
 
 
@@ -321,6 +328,16 @@
             var sampleDataSource = SampleDataSource.GetGroup("DrumPieces");
             this.itemsControl.ItemsSource = sampleDataSource;
 
+            //Inicializa el vector de GestureDetector
+            this.gestureDetectorList = new List<GestureDetector>();
+            player = new MediaPlayer();
+            player.Open(new Uri("Sounds/Hihat.wav", UriKind.Relative));
+
+            for (int i = 0; i < maxBodies; ++i) {
+
+                GestureDetector detector = new GestureDetector(this.kinectSensor, player);
+                this.gestureDetectorList.Add(detector);
+            }
             /*****************************************************************************************************************/
         }
 
@@ -350,8 +367,22 @@
                 this.bodyFrameReader = null;
             }
 
-            drums.Clear();
-            hihats.Clear();
+            if (this.gestureDetectorList != null) {
+
+                // The GestureDetector contains disposable members
+                foreach (GestureDetector detector in this.gestureDetectorList) {
+
+                    detector.Dispose();
+                }
+
+                this.gestureDetectorList.Clear();
+                this.gestureDetectorList = null;
+            }
+
+            this.drums.Clear();
+            this.drums = null;
+            this.hihats.Clear();
+            this.hihats = null;
         }
 
         // Handles the body frame data arriving from the sensor
@@ -392,6 +423,9 @@
                         dc.DrawRectangle(Brushes.Transparent, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
 
                     int penIndex = 0;
+                    //Mantiene la cuenta de cuerpos detectados para solo mostrar el máximo establecido
+                    int bodiesCount = 0;
+
                     foreach (Body body in this.bodies) {
 
                         Pen drawPen = this.bodyColors[penIndex++];
@@ -466,6 +500,24 @@
                                 this.OnDrumHit(jointPoints[JointType.HandTipLeft], jointPoints[JointType.HandTipRight], jointPoints[JointType.FootLeft], jointPoints[JointType.FootRight]);
                             }
 
+                            //Obtiene el ID del body actual
+                            ulong trackingId = body.TrackingId;
+                            // Si el TrackingId de un Body cambia, actualiza su correspondiente GestureDetector con el nuevo valor
+                            if (trackingId != this.gestureDetectorList[bodiesCount].TrackingId)
+                            {
+
+                                this.gestureDetectorList[bodiesCount].TrackingId = trackingId;
+
+                                // Si el Body actual esta siendo detectado, inicia su GestureDetector
+                                // Si no está siendo detectado, pausa el GestureDetector para ahorrar recursos
+                                this.gestureDetectorList[bodiesCount].IsPaused = trackingId == 0;
+                            }
+
+                            //Incrementa los cuerpos detectados;
+                            bodiesCount++;
+                            //Si ya se ha pintado el máximo de bodies, termina de pintarlos
+                            if (bodiesCount == maxBodies)
+                                break;
                             /*************************************************************************************************************/
 
                         }
